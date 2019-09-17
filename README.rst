@@ -2,8 +2,12 @@
    :target: https://pypi.org/project/aeroframe/
    :alt: Latest PyPI version
 
-AeroFrame
-=========
+|
+
+.. image:: https://raw.githubusercontent.com/airinnova/aeroframe/master/docs/source/_static/images/logo/logo.png
+    :alt: Logo
+    :width: 200 px
+    :scale: 100 %
 
 Framework for aeroelastic analyses
 
