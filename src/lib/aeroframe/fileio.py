@@ -29,46 +29,114 @@ import json
 import importlib
 import os
 
+from commonlibs.fileio.paths import ProjectPaths
+
+
+class PATHS:
+
+    class FILES:
+
+        DEFAULT_SETTINGS = 'aeroframe_settings.json'
+
+    class DIRS:
+
+        CFD = 'cfd'
+        STRUCTURE = 'structure'
+        SHARED = '_shared'
+        SHARED_FROM_CFD = 'from_cfd'
+        SHARED_FROM_STRUCTURE = 'from_structure'
+
+    class GROUPS:
+
+        INIT = 'init'
+        CFD = 'cfd'
+        STRUCTURE = 'structure'
+        SHARED = 'shared'
+
 
 class FileStructure:
 
-    """Aeroframe file structure"""
-
-    def __init__(self, settings_file, root_dir=None, make_dirs=True):
+    def __init__(self, root_dir=None, make_dirs=True):
         """
-        Setup the project directories and main files
+        Aeroframe file structure
 
-        All files and directories stored as absolute paths
+        Note:
+            * If 'root_dir' is None, the root directory, we use 'os.getcwd()'
+
+        Args:
+            :root_dir: (str,path) Project root folder
+            :make_dirs: (bool) If True, make directories of group 'init'
         """
 
-        self.dirs = {
-            "cfd": "cfd",
-            "structure": "structure",
-            "shared": "_shared",
-            "shared_from_cfd": "_shared/from_cfd",
-            "shared_from_structure": "_shared/from_structure",
-        }
+        if root_dir is None:
+            root_dir = os.getcwd()
 
-        self.files = {
-            "root_settings": settings_file,
-            "shared_def_file": "_shared/from_structure/deformation.json"
-        }
+        self.paths = ProjectPaths(root_dir)
 
-        if root_dir is not None:
-            self.root = os.path.abspath(root_dir)
-        else:
-            self.root = os.path.abspath(os.getcwd())
+        # ----- Directories -----
+        self.paths.add_path(
+            uid='d_cfd',
+            path=PATHS.DIRS.CFD,
+            uid_groups=(PATHS.GROUPS.INIT, PATHS.GROUPS.CFD)
+        )
 
-        # Make absolute paths
-        for dir_id in self.dirs.keys():
-            self.dirs[dir_id] = os.path.join(self.root, self.dirs[dir_id])
+        self.paths.add_path(
+            uid='d_structure',
+            path=PATHS.DIRS.STRUCTURE,
+            uid_groups=(PATHS.GROUPS.INIT, PATHS.GROUPS.STRUCTURE)
+        )
 
-            if make_dirs and not os.path.exists(self.dirs[dir_id]):
-                    os.makedirs(self.dirs[dir_id])
+        self.paths.add_path(
+            uid='d_shared',
+            path=PATHS.DIRS.SHARED,
+            uid_groups=(PATHS.GROUPS.INIT, PATHS.GROUPS.SHARED)
+        )
 
-        for file_id in self.files.keys():
-            self.files[file_id] = os.path.join(self.root, self.files[file_id])
+        self.paths.add_subpath(
+            uid_parent='d_shared',
+            uid='d_shared_from_cfd',
+            path=PATHS.DIRS.SHARED_FROM_CFD,
+            uid_groups=(PATHS.GROUPS.INIT, PATHS.GROUPS.CFD, PATHS.GROUPS.SHARED)
+        )
 
+        self.paths.add_subpath(
+            uid_parent='d_shared',
+            uid='d_shared_from_structure',
+            path=PATHS.DIRS.SHARED_FROM_STRUCTURE,
+            uid_groups=(PATHS.GROUPS.INIT, PATHS.GROUPS.STRUCTURE, PATHS.GROUPS.SHARED)
+        )
+
+        # ----- Files -----
+        self.paths.add_path(
+            uid='f_root_settings',
+            path=PATHS.FILES.DEFAULT_SETTINGS
+        )
+
+        if make_dirs:
+            self.init_dirs()
+
+    def init_dirs(self):
+        """
+        Create directories belonging to 'init' group
+        """
+
+        self.paths.make_dirs_for_groups(uid_groups='init', is_dir=True)
+
+    def init_emtpy_settings_file(self, overwrite=False):
+        """
+        TODO
+        """
+
+        settings_file = self.paths("f_root_settings")
+
+        if not overwrite and settings_file.exists():
+            raise FileExistsError(f"Path '{settings_file}' exists. Will not overwrite.")
+
+        # TODO: DEFAULT SETTINGS DICT
+        test = {"test": 123}
+
+        with open(settings_file, "w") as fp:
+            json.dump(test, fp)
 
 def load_root_settings(aeroframe_files):
     """
@@ -78,7 +146,7 @@ def load_root_settings(aeroframe_files):
         :aeroframe_files: file structure of aeroframe program
     """
 
-    with open(aeroframe_files.files["root_settings"], "r") as fp:
+    with open(aeroframe_files.paths("f_root_settings"), "r") as fp:
         settings = json.load(fp)
 
     return settings

@@ -10,6 +10,8 @@ Command line program interface
 
 import logging
 import argparse
+import sys
+import os
 
 import commonlibs.logger as hlogger
 
@@ -47,6 +49,7 @@ def main():
     # ----- Mode 'init' -----
     sub = subparsers.add_parser('init', help='initialise a project')
     sub.add_argument('-f', '--force', help='overwrite existing files', action='store_true')
+    sub.add_argument('-d', '--dest', help='destination directory', default=os.getcwd())
 
     args = parser.parse_args()
 
@@ -54,8 +57,6 @@ def main():
         #######################
         # TODO: Move program logic to 'stdrun' module
         #######################
-
-        settings_file = args.filename
 
         if args.verbose:
             level = 'info'
@@ -71,13 +72,15 @@ def main():
         logger = logging.getLogger()
         logger.info(hlogger.decorate(f"{__prog_name__}"))
 
-        # ===== Initialise =====
-        files = io.FileStructure(settings_file)
-        general_settings = io.load_root_settings(files).get('general_settings', {})
+        root_dir = os.path.dirname(args.filename)
 
-        cfd_lib, stru_lib = io.load_wrapper_libs(files)
-        cfd_wrapper = cfd_lib.AeroWrapper(files)
-        stru_wrapper = stru_lib.StructureWrapper(files)
+        # ===== Initialise =====
+        paths = io.FileStructure(root_dir)
+        general_settings = io.load_root_settings(paths).get('general_settings', {})
+
+        cfd_lib, stru_lib = io.load_wrapper_libs(paths)
+        cfd_wrapper = cfd_lib.AeroWrapper(paths)
+        stru_wrapper = stru_lib.StructureWrapper(paths)
 
         #######################
         # shared_data = SharedData()
@@ -101,7 +104,15 @@ def main():
         static.find_equilibrium()
 
     elif args.exec_mode == 'init':
-        raise NotImplementedError
+        paths = io.FileStructure(root_dir=args.dest, make_dirs=True)
+
+        try:
+            paths.init_emtpy_settings_file(overwrite=args.force)
+        except FileExistsError:
+            err_msg = f"Settings file '{io.PATHS.FILES.DEFAULT_SETTINGS}' exists.\n" + \
+                       "Will not overwrite, unless forced (hint: --force)"
+            print(err_msg, sep='')
+            sys.exit(1)
 
     else:
         parser.print_help()
