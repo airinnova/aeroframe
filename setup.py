@@ -15,7 +15,9 @@ EMAIL = 'dettmann@kth.se'
 DESCRIPTION = 'AeroFrame (Aeroelastic Framework)'
 URL = 'https://github.com/airinnova/aeroframe'
 REQUIRES_PYTHON = '>=3.6.0'
-REQUIRED = []
+REQUIRED = [
+    'commonlibs',
+]
 README = 'README.rst'
 PACKAGE_DIR = 'src/lib/'
 LICENSE = 'Apache License 2.0'

@@ -1,1 +1,94 @@
-print("not empty")
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Command line program interface
+"""
+
+# Authors:
+# * Aaron Dettmann
+
+import logging
+import argparse
+
+import commonlibs.logger as hlogger
+
+import aeroframe.fileio as io
+from aeroframe.analyses.static import StaticAeroelasticity
+from aeroframe.data.shared import SharedData
+
+logger = logging.getLogger(__name__)
+
+__prog_name__ = 'aeroframe'
+
+
+def main():
+    """
+    Top level procedure
+    """
+
+    # ===== Arguments =====
+    help_clean = "remove old result files from previous analysis"
+
+    parser = argparse.ArgumentParser(prog=f'{__prog_name__}')
+    parser.add_argument("filename", help="Input file", type=str)
+
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("-v", "--verbose", action="store_true")
+    group.add_argument("-d", "--debug", action="store_true")
+    group.add_argument("-q", "--quiet", action="store_true")
+
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("-c", "--clean", help=help_clean, action="store_true")
+    group.add_argument("--clean-only", help="clean and exit", action="store_true")
+
+    args = parser.parse_args()
+
+    settings_file = args.filename
+
+    if args.verbose:
+        level = 'info'
+    elif args.debug:
+        level = 'debug'
+    elif args.quiet:
+        level = 'quiet'
+    else:
+        level = 'default'
+
+    # ===== Logging =====
+    hlogger.init(log_filename="log.txt", level=level)
+    logger = logging.getLogger()
+    logger.info(hlogger.decorate(f"{__prog_name__}"))
+
+    # ===== Initialise =====
+    files = io.FileStructure(settings_file)
+    general_settings = io.load_root_settings(files).get('general_settings', {})
+
+    cfd_lib, stru_lib = io.load_wrapper_libs(files)
+    cfd_wrapper = cfd_lib.AeroWrapper(files)
+    stru_wrapper = stru_lib.StructureWrapper(files)
+
+#######################
+    # shared_data = SharedData()
+    # cfd_wrapper.shared_data = shared_data
+    # stru_wrapper.shared_data = shared_data
+#######################
+
+    # ===== Clean up before running a new analysis =====
+    if args.clean or args.clean_only:
+        logger.info("Removing old files...")
+        cfd_wrapper.clean()
+        stru_wrapper.clean()
+
+        if args.clean_only:
+            logger.info("Exiting...")
+            return
+
+    # ===== Run the aeroelastic analysis =====
+    settings = general_settings.get('static_loop', {})
+    static = StaticAeroelasticity(cfd_wrapper, stru_wrapper, **settings)
+    static.find_equilibrium()
+
+
+if __name__ == '__main__':
+    main()

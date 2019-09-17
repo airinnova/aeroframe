@@ -1,0 +1,20 @@
+{
+    "cfd_model":{
+        "wrapper": "aeroframe.templates.cfdwrapper",
+        "exec_settings": {
+            "run": "dummy",
+            "verbose": true,
+            "debug": false,
+            "quiet": false
+        }
+    },
+
+    "structure_model": {
+        "wrapper": "aeroframe.templates.structurewrapper",
+        "exec_settings": {
+            "filename":" dummy_wing.json",
+            "verbose":  true,
+            "debug": false
+        }
+    }
+}
