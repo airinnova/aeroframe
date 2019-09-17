@@ -27,6 +27,11 @@
 
 Framework for aeroelastic analyses
 
+Documentation
+-------------
+
+* https://aeroframe.readthedocs.io/
+
 License
 -------
 
