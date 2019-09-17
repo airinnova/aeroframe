@@ -53,6 +53,32 @@ class PATHS:
         STRUCTURE = 'structure'
         SHARED = 'shared'
 
+_WRAPPER_DICT = {
+    "wrapper": {'type': str},
+    "exec_settings": {'type': dict, 'schema': {}},
+}
+
+DEFAULT_SETTINGS_DICT = {
+    'general_settings': {
+        'type': dict,
+        'schema': {
+            'static_loop': {
+                'type': dict,
+                'schema': {
+                    'max_iterations': {'type': int, '>': 1},
+                    'rel_conv_lim': {'type': float, '>': 0, '<': 1},
+                }
+            }
+        }
+    },
+    'cfd_model': {
+        'type': dict,
+        'schema': _WRAPPER_DICT,
+    }
+}
+
+# TODO: Convert schema to default settings dict
+# TODO: Add schema check
 
 class FileStructure:
 
@@ -137,6 +163,7 @@ class FileStructure:
 
         with open(settings_file, "w") as fp:
             json.dump(test, fp)
+
 
 def load_root_settings(aeroframe_files):
     """
