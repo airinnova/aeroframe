@@ -1,3 +1,7 @@
+.. image:: https://img.shields.io/pypi/v/aeroframe.svg?style=flat
+   :target: https://pypi.org/project/aeroframe/
+   :alt: Latest PyPI version
+
 AeroFrame
 =========
 
