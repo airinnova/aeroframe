@@ -76,14 +76,10 @@ def standard_run(args):
     general_settings = io.load_root_settings(paths).get('general_settings', {})
 
     cfd_lib, stru_lib = io.load_wrapper_libs(paths)
-    cfd_wrapper = cfd_lib.Wrapper(paths)
-    stru_wrapper = stru_lib.Wrapper(paths)
-
-    #######################
-    # shared_data = SharedData()
-    # cfd_wrapper.shared_data = shared_data
-    # stru_wrapper.shared_data = shared_data
-    #######################
+    # Wrapper must share same instance of 'SharedData()'
+    shared_data = SharedData()
+    cfd_wrapper = cfd_lib.Wrapper(shared_data)
+    stru_wrapper = stru_lib.Wrapper(shared_data)
 
     # ===== Clean up before running a new analysis =====
     if args.clean or args.clean_only:

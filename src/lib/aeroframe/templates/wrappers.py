@@ -26,33 +26,29 @@ Wrapper base classes
 
 import logging
 
-from aeroframe.data.shared import SharedData
-
 logger = logging.getLogger(__name__)
 
 
 class AeroWrapper:
 
-    def __init__(self, aeroframe_files):
+    def __init__(self, shared):
         """
-        Setup routine
+        Wrapper for the aerodynamics solver
 
         Args:
-            :aeroframe_files: file structure of aeroframe program
+            :shared: Instance of 'SharedData'
 
-        Required attributes:
-            :last_solution: some data structure with the last solution of the
+        Attr:
+            :last_solution: Some data structure with the last solution of the
                             CFD analysis (will be passed on once final solution
                             is found)
         """
 
         # Setup routines go here
-        logger.info("Setup...")
-
-        self.aeroframe_files = aeroframe_files
+        logger.info("Initialising CFD wrapper...")
 
         # Shared data
-        self.shared = SharedData()
+        self.shared = shared
 
         # Required
         self.last_solution = None
@@ -69,10 +65,6 @@ class AeroWrapper:
         """
 
         logger.info("Running analysis...")
-
-        self.share_loads()
-
-    def share_loads(self):
         logger.info("Sharing loads...")
 
     def clean(self):
@@ -85,21 +77,19 @@ class AeroWrapper:
 
 class StructureWrapper:
 
-    def __init__(self, aeroframe_files):
+    def __init__(self, shared):
         """
         Setup
 
         Args:
-            :aeroframe_files: file structure of aeroframe program
+            :shared: Instance of 'SharedData'
         """
 
         # Setup routines go here
-        logger.info("Setup...")
-
-        self.aeroframe_files = aeroframe_files
+        logger.info("Initialising structure wrapper...")
 
         # Shared data
-        self.shared = SharedData()
+        self.shared = shared
 
         # Required
         self.last_solution = None
@@ -113,10 +103,6 @@ class StructureWrapper:
         """
 
         logger.info("Running analysis...")
-
-        self.share_deformations()
-
-    def share_deformations(self):
         logger.info("Sharing deformations...")
 
     def check_convergence(self):
