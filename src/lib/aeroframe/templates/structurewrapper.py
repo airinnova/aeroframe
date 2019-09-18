@@ -24,63 +24,8 @@
 Template for the structure wrapper
 """
 
-import logging
+from aeroframe.templates.wrappers import StructureWrapper
 
-logger = logging.getLogger(__name__)
 
-__wrapper_name__ = 'Structure dummy wrapper'
-
-class StructureWrapper:
-
-    def __init__(self, aeroframe_files):
-        """
-        Setup
-
-        Args:
-            :aeroframe_files: file structure of aeroframe program
-        """
-
-        # Setup routines go here
-        logger.info("Setup...")
-
-        self.aeroframe_files = aeroframe_files
-
-        # Required
-        self.last_solution = None
-
-    def run_analysis(self):
-        """
-        Run a full analysis
-
-        Note:
-            * Computed deformations are shared
-        """
-
-        logger.info("Running analysis...")
-
-        self.share_deformations()
-
-    def share_deformations(self):
-        logger.info("Sharing deformations...")
-
-    def check_convergence(self):
-        """
-        Return a relative difference between the deformations of the two analyses
-
-        Note:
-            * Deformations are evaluated at certain control points (here all
-              named nodes)
-
-        Returns:
-            :max_rel_diff: maximum relative difference between last and CG positions
-        """
-
-        logger.info("Checking convergence...")
-        return 1
-
-    def clean(self):
-        """
-        Remove old result file from a previous analysis
-        """
-
-        logger.info("Cleaning...")
+class Wrapper(StructureWrapper):
+    pass

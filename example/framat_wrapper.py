@@ -7,6 +7,54 @@ Wrapper module for aeroframe
 
 # Author: Aaron Dettmann
 
+from aeroframe.templates.structurewrapper import StructureWrapper
+
+class Wrapper:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#####
+#####
+#####
+
 import os
 import shutil
 

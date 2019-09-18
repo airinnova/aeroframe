@@ -71,15 +71,13 @@ def standard_run(args):
     logger = logging.getLogger()
     logger.info(hlogger.decorate(f"{__prog_name__}"))
 
-    root_dir = os.path.dirname(args.dest)
-
     # ===== Initialise =====
     paths = io.FileStructure(root_dir=args.dest)
     general_settings = io.load_root_settings(paths).get('general_settings', {})
 
     cfd_lib, stru_lib = io.load_wrapper_libs(paths)
-    cfd_wrapper = cfd_lib.AeroWrapper(paths)
-    stru_wrapper = stru_lib.StructureWrapper(paths)
+    cfd_wrapper = cfd_lib.Wrapper(paths)
+    stru_wrapper = stru_lib.Wrapper(paths)
 
     #######################
     # shared_data = SharedData()
