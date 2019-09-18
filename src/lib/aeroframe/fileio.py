@@ -30,6 +30,8 @@ import importlib
 import os
 
 from commonlibs.fileio.paths import ProjectPaths
+from commonlibs.fileio.json import dump_pretty_json
+from commonlibs.dicts.schemadicts import get_default_value_dict
 
 
 class PATHS:
@@ -53,11 +55,6 @@ class PATHS:
         STRUCTURE = 'structure'
         SHARED = 'shared'
 
-_WRAPPER_DICT = {
-    "wrapper": {'type': str},
-    "exec_settings": {'type': dict, 'schema': {}},
-}
-
 DEFAULT_SETTINGS_DICT = {
     'general_settings': {
         'type': dict,
@@ -65,16 +62,26 @@ DEFAULT_SETTINGS_DICT = {
             'static_loop': {
                 'type': dict,
                 'schema': {
-                    'max_iterations': {'type': int, '>': 1},
-                    'rel_conv_lim': {'type': float, '>': 0, '<': 1},
-                }
-            }
-        }
+                    'max_iterations': {'type': int, '>': 1, 'default': 15},
+                    'rel_conv_lim': {'type': float, '>': 0, '<': 1, 'default': 0.05},
+                },
+            },
+        },
     },
     'cfd_model': {
         'type': dict,
-        'schema': _WRAPPER_DICT,
-    }
+        'schema': {
+            'wrapper': {'type': str, 'default': 'aeroframe.templates.cfdwrapper'},
+            'exec_settings': {'type': dict}
+        },
+    },
+    'structure_model': {
+        'type': dict,
+        'schema': {
+            'wrapper': {'type': str, 'default': 'aeroframe.templates.structurewrapper'},
+            'exec_settings': {'type': dict}
+        },
+    },
 }
 
 # TODO: Convert schema to default settings dict
@@ -158,11 +165,9 @@ class FileStructure:
         if not overwrite and settings_file.exists():
             raise FileExistsError(f"Path '{settings_file}' exists. Will not overwrite.")
 
-        # TODO: DEFAULT SETTINGS DICT
-        test = {"test": 123}
-
         with open(settings_file, "w") as fp:
-            json.dump(test, fp)
+            settings_dict = get_default_value_dict(DEFAULT_SETTINGS_DICT)
+            dump_pretty_json(settings_dict, fp)
 
 
 def load_root_settings(aeroframe_files):
