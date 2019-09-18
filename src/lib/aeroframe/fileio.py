@@ -84,8 +84,6 @@ DEFAULT_SETTINGS_DICT = {
     },
 }
 
-# TODO: Convert schema to default settings dict
-# TODO: Add schema check
 
 class FileStructure:
 
@@ -157,7 +155,10 @@ class FileStructure:
 
     def init_emtpy_settings_file(self, overwrite=False):
         """
-        TODO
+        Create a settings file with default values
+
+        Args:
+            :overwrite: (bool) If True, overwrite an existing settings file
         """
 
         settings_file = self.paths("f_root_settings")
