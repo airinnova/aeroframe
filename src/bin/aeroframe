@@ -10,6 +10,8 @@ Command line program interface
 
 import logging
 import argparse
+import sys
+import os
 
 import commonlibs.logger as hlogger
 
@@ -28,66 +30,94 @@ def main():
     """
 
     # ===== Arguments =====
-    help_clean = "remove old result files from previous analysis"
-
     parser = argparse.ArgumentParser(prog=f'{__prog_name__}')
-    parser.add_argument("filename", help="Input file", type=str)
+    subparsers = parser.add_subparsers(help='execution modes', dest='exec_mode')
 
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument("-v", "--verbose", action="store_true")
-    group.add_argument("-d", "--debug", action="store_true")
-    group.add_argument("-q", "--quiet", action="store_true")
+    # ----- Mode 'run' -----
+    sub = subparsers.add_parser('run', help='run an analysis')
+    sub.add_argument('filename', metavar='input file', help='input file', type=str)
 
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument("-c", "--clean", help=help_clean, action="store_true")
-    group.add_argument("--clean-only", help="clean and exit", action="store_true")
+    group = sub.add_mutually_exclusive_group()
+    group.add_argument('-c', '--clean', help='remove old project files', action='store_true')
+    group.add_argument('--clean-only', help='clean and exit', action='store_true')
+
+    group = sub.add_mutually_exclusive_group()
+    group.add_argument('-v', '--verbose', action='store_true')
+    group.add_argument('-d', '--debug', action='store_true')
+    group.add_argument('-q', '--quiet', action='store_true')
+
+    # ----- Mode 'init' -----
+    sub = subparsers.add_parser('init', help='initialise a project')
+    sub.add_argument('-f', '--force', help='overwrite existing files', action='store_true')
+    sub.add_argument('-d', '--dest', help='destination directory', default=os.getcwd())
 
     args = parser.parse_args()
 
-    settings_file = args.filename
+    if args.exec_mode == 'run':
+        #######################
+        # TODO: Move program logic to 'stdrun' module
+        #######################
 
-    if args.verbose:
-        level = 'info'
-    elif args.debug:
-        level = 'debug'
-    elif args.quiet:
-        level = 'quiet'
+        if args.verbose:
+            level = 'info'
+        elif args.debug:
+            level = 'debug'
+        elif args.quiet:
+            level = 'quiet'
+        else:
+            level = 'default'
+
+        # ===== Logging =====
+        hlogger.init(log_filename="log.txt", level=level)
+        logger = logging.getLogger()
+        logger.info(hlogger.decorate(f"{__prog_name__}"))
+
+        root_dir = os.path.dirname(args.filename)
+
+        # ===== Initialise =====
+        paths = io.FileStructure(root_dir)
+        general_settings = io.load_root_settings(paths).get('general_settings', {})
+
+        cfd_lib, stru_lib = io.load_wrapper_libs(paths)
+        cfd_wrapper = cfd_lib.AeroWrapper(paths)
+        stru_wrapper = stru_lib.StructureWrapper(paths)
+
+        #######################
+        # shared_data = SharedData()
+        # cfd_wrapper.shared_data = shared_data
+        # stru_wrapper.shared_data = shared_data
+        #######################
+
+        # ===== Clean up before running a new analysis =====
+        if args.clean or args.clean_only:
+            logger.info("Removing old files...")
+            cfd_wrapper.clean()
+            stru_wrapper.clean()
+
+            if args.clean_only:
+                logger.info("Exiting...")
+                return
+
+        # ===== Run the aeroelastic analysis =====
+        settings = general_settings.get('static_loop', {})
+        static = StaticAeroelasticity(cfd_wrapper, stru_wrapper, **settings)
+        static.find_equilibrium()
+
+    elif args.exec_mode == 'init':
+        paths = io.FileStructure(root_dir=args.dest, make_dirs=True)
+
+        try:
+            paths.init_emtpy_settings_file(overwrite=args.force)
+        except FileExistsError:
+            err_msg = f"Settings file '{io.PATHS.FILES.DEFAULT_SETTINGS}' exists.\n" + \
+                       "Will not overwrite, unless forced (hint: --force)"
+            print(err_msg, sep='')
+            sys.exit(1)
+
     else:
-        level = 'default'
+        parser.print_help()
 
-    # ===== Logging =====
-    hlogger.init(log_filename="log.txt", level=level)
-    logger = logging.getLogger()
-    logger.info(hlogger.decorate(f"{__prog_name__}"))
 
-    # ===== Initialise =====
-    files = io.FileStructure(settings_file)
-    general_settings = io.load_root_settings(files).get('general_settings', {})
-
-    cfd_lib, stru_lib = io.load_wrapper_libs(files)
-    cfd_wrapper = cfd_lib.AeroWrapper(files)
-    stru_wrapper = stru_lib.StructureWrapper(files)
-
-#######################
-    # shared_data = SharedData()
-    # cfd_wrapper.shared_data = shared_data
-    # stru_wrapper.shared_data = shared_data
-#######################
-
-    # ===== Clean up before running a new analysis =====
-    if args.clean or args.clean_only:
-        logger.info("Removing old files...")
-        cfd_wrapper.clean()
-        stru_wrapper.clean()
-
-        if args.clean_only:
-            logger.info("Exiting...")
-            return
-
-    # ===== Run the aeroelastic analysis =====
-    settings = general_settings.get('static_loop', {})
-    static = StaticAeroelasticity(cfd_wrapper, stru_wrapper, **settings)
-    static.find_equilibrium()
 
 
 if __name__ == '__main__':
