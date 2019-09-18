@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 """
 Wrapper module for aeroframe
@@ -8,11 +6,14 @@ Wrapper module for aeroframe
 # Author: Aaron Dettmann
 
 import json
+import logging
 
 from aeroframe.templates.wrappers import StructureWrapper
 
 from commonlibs.fileio.json import dump_pretty_json
 from framat.stdfun import standard_run, StdRunArgs
+
+logger = logging.getLogger(__name__)
 
 
 class Wrapper(StructureWrapper):
@@ -22,12 +23,14 @@ class Wrapper(StructureWrapper):
 
     def run_analysis(self):
         """
-        TODO
+
+        See FramAT documentation
         """
 
+        logger.info("Run structure analysis...")
         model_filename = 'structure/WindTunnelModel.json'
 
-        # get loads
+        # ----- Apply shared loads to FramAT model -----
         free_node_loads = []
         loads = self.shared.cfd.loads.get('main_wing', None)
         if loads is not None:
@@ -45,9 +48,10 @@ class Wrapper(StructureWrapper):
         args = StdRunArgs(filename=model_filename, verbose=True)
         results = standard_run(args=args)
 
-        # ----- See FramAT documentation -----
+        # ----- Share loads -----
+        logger.info("Sharing loads...")
         frame = results['frame']
-        # self.shared.structure.deformation = ...
+        self.shared.structure.deformation = frame.deformation.get_displacement_fields(frame)
 
     def clean(self):
         """
