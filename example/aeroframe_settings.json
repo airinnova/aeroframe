@@ -6,11 +6,11 @@
         }
     },
     "cfd_model": {
-        "wrapper": "pytornado_wrapper",
+        "wrapper": "aeroframe._wrappers.pytornado_wrapper",
         "exec_settings": {}
     },
     "structure_model": {
-        "wrapper": "framat_wrapper",
+        "wrapper": "aeroframe._wrappers.framat_wrapper",
         "exec_settings": {}
     }
 }

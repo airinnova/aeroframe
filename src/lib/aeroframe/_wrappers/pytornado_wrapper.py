@@ -9,24 +9,20 @@ Wrapper module for aeroframe
 
 from aeroframe.templates.wrappers import AeroWrapper
 
+from pytornado.stdfun.run import standard_run, StdRunArgs
 
 class Wrapper(AeroWrapper):
 
     def __init__(self, shared):
         super().__init__(shared)
 
-    def run_analysis(self):
-        """
-        TODO
-        """
-        ...
-
     def run_analysis(self, turn_off_deform=False):
         """
         TODO
         """
-        ...
 
+        args = StdRunArgs(run='cfd/settings/WindTunnelModel.json', verbose=True)
+        standard_run(args)
         # TODO: perform Framat analysis
         # TODO: share deformation
         # self.shared.structure.deformation = ...

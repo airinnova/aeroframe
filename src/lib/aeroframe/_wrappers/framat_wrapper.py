@@ -9,6 +9,8 @@ Wrapper module for aeroframe
 
 from aeroframe.templates.wrappers import StructureWrapper
 
+from framat.stdfun import standard_run, StdRunArgs
+
 
 class Wrapper(StructureWrapper):
 
@@ -19,13 +21,9 @@ class Wrapper(StructureWrapper):
         """
         TODO
         """
-        ...
 
-    def run_analysis(self):
-        """
-        TODO
-        """
-        ...
+        args = StdRunArgs(filename='structure/WindTunnelModel.json', verbose=True)
+        results = standard_run(args=args)
 
         # TODO: perform PyTornado analysis
         # TODO: share loads
