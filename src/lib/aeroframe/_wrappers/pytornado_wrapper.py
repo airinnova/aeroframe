@@ -7,6 +7,8 @@ Wrapper module for aeroframe
 
 # Author: Aaron Dettmann
 
+import numpy as np
+
 from aeroframe.templates.wrappers import AeroWrapper
 
 from pytornado.stdfun.run import standard_run, StdRunArgs
@@ -16,16 +18,37 @@ class Wrapper(AeroWrapper):
     def __init__(self, shared):
         super().__init__(shared)
 
+        # ---------
+        # TODO:
+        # - generalise for multiple wings
+        # - Make sure aircraft is undeformed
+        args = StdRunArgs(run='cfd/settings/WindTunnelModel.json', verbose=True)
+        results = standard_run(args)
+        bound_leg_midpoints = results['lattice'].bound_leg_midpoints
+        self.points_of_attack_undeformed = bound_leg_midpoints
+        # ---------
+
     def run_analysis(self, turn_off_deform=False):
         """
         TODO
         """
 
         args = StdRunArgs(run='cfd/settings/WindTunnelModel.json', verbose=True)
-        standard_run(args)
+        results = standard_run(args)
         # TODO: perform Framat analysis
         # TODO: share deformation
         # self.shared.structure.deformation = ...
+
+        # ---------
+        # See PyTornado documentation
+        vlmdata = results['vlmdata']
+
+        forces = np.array([vlmdata.panelwise[key] for key in ('fx', 'fy', 'fz')])
+        load_data = np.block([self.points_of_attack_undeformed, forces.T])
+
+        # Share loads
+        self.shared.cfd.loads['main_wing'] = load_data
+        # ---------
 
     def check_convergence(self):
         """

@@ -7,8 +7,11 @@ Wrapper module for aeroframe
 
 # Author: Aaron Dettmann
 
+import json
+
 from aeroframe.templates.wrappers import StructureWrapper
 
+from commonlibs.fileio.json import dump_pretty_json
 from framat.stdfun import standard_run, StdRunArgs
 
 
@@ -22,11 +25,28 @@ class Wrapper(StructureWrapper):
         TODO
         """
 
-        args = StdRunArgs(filename='structure/WindTunnelModel.json', verbose=True)
+        model_filename = 'structure/WindTunnelModel.json'
+
+        # get loads
+        free_node_loads = []
+        loads = self.shared.cfd.loads.get('main_wing', None)
+        if loads is not None:
+            for (x, y, z, fx, fy, fz) in loads:
+                free_node_loads.append({'coord': [x, y, z], 'load': [fx, fy, fz, 0, 0, 0]})
+
+            with open(model_filename, 'r') as fp:
+                str_model = json.load(fp)
+
+            str_model['beamlines'][0]['loads']['free_nodes'] = free_node_loads
+
+            with open(model_filename, 'w') as fp:
+                dump_pretty_json(str_model, fp)
+
+        args = StdRunArgs(filename=model_filename, verbose=True)
         results = standard_run(args=args)
 
-        # TODO: perform PyTornado analysis
-        # TODO: share loads
+        # ----- See FramAT documentation -----
+        frame = results['frame']
         # self.shared.structure.deformation = ...
 
     def clean(self):

@@ -44,7 +44,6 @@ class PATHS:
 
         CFD = 'cfd'
         STRUCTURE = 'structure'
-        SHARED = '_shared'
         SHARED_FROM_CFD = 'from_cfd'
         SHARED_FROM_STRUCTURE = 'from_structure'
 
@@ -53,7 +52,6 @@ class PATHS:
         INIT = 'init'
         CFD = 'cfd'
         STRUCTURE = 'structure'
-        SHARED = 'shared'
 
 DEFAULT_SETTINGS_DICT = {
     'general_settings': {
@@ -115,26 +113,6 @@ class FileStructure:
             uid='d_structure',
             path=PATHS.DIRS.STRUCTURE,
             uid_groups=(PATHS.GROUPS.INIT, PATHS.GROUPS.STRUCTURE)
-        )
-
-        self.paths.add_path(
-            uid='d_shared',
-            path=PATHS.DIRS.SHARED,
-            uid_groups=(PATHS.GROUPS.INIT, PATHS.GROUPS.SHARED)
-        )
-
-        self.paths.add_subpath(
-            uid_parent='d_shared',
-            uid='d_shared_from_cfd',
-            path=PATHS.DIRS.SHARED_FROM_CFD,
-            uid_groups=(PATHS.GROUPS.INIT, PATHS.GROUPS.CFD, PATHS.GROUPS.SHARED)
-        )
-
-        self.paths.add_subpath(
-            uid_parent='d_shared',
-            uid='d_shared_from_structure',
-            path=PATHS.DIRS.SHARED_FROM_STRUCTURE,
-            uid_groups=(PATHS.GROUPS.INIT, PATHS.GROUPS.STRUCTURE, PATHS.GROUPS.SHARED)
         )
 
         # ----- Files -----
