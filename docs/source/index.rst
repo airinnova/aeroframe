@@ -17,7 +17,6 @@ Welcome to |name|'s documentation!
    :caption: User guide
 
    user_guide/installation
-   user_guide/getting_started
    user_guide/detailed_user_guide
    user_guide/tutorials
    user_guide/limitations
@@ -33,6 +32,7 @@ Welcome to |name|'s documentation!
    :caption: Links
 
    references
+   related_projects
 
 .. toctree::
    :maxdepth: 1
