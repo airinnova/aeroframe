@@ -11,8 +11,8 @@ Command line program interface
 import argparse
 import os
 
-from aeroframe.stdfun.stdrun import standard_run
-from aeroframe.stdfun.setup import setup_project
+from aeroframe.stdfun.run import standard_run
+from aeroframe.stdfun.init import setup_project
 from aeroframe import __prog_name__
 
 def cli():
