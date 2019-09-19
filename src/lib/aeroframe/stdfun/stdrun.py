@@ -25,28 +25,27 @@ High-level wrappers for commonly used functions
 """
 
 import logging
-import os
 
 import commonlibs.logger as hlogger
 
 from aeroframe.analyses.static import StaticAeroelasticity
-from aeroframe.data.shared import SharedData
 import aeroframe.fileio as io
 from aeroframe import __prog_name__
+from aeroframe.__version__ import __version__
 
 logger = logging.getLogger(__name__)
 
 
 class StdRunArgs:
 
-    def __init__(self):
+    def __init__(self, verbose, debug, quiet, clean, clean_only):
 
-        verbose = False
-        debug = False
-        quiet = False
+        self.verbose = verbose
+        self.debug = debug
+        self.quiet = quiet
 
-        clean = False
-        clean_only = False
+        self.clean = clean
+        self.clean_only = clean_only
 
 
 def standard_run(args):
@@ -55,6 +54,9 @@ def standard_run(args):
 
     Args:
         :args: (obj) Instance of form 'StdRunArgs'
+
+    Returns:
+        :results: (dict) Results from static analysis
     """
 
     if args.verbose:
@@ -69,17 +71,11 @@ def standard_run(args):
     # ===== Logging =====
     hlogger.init(log_filename="log.txt", level=level)
     logger = logging.getLogger()
-    logger.info(hlogger.decorate(f"{__prog_name__}"))
+    logger.info(hlogger.decorate(f"{__prog_name__} {__version__}"))
 
     # ===== Initialise =====
-    paths = io.FileStructure(root_dir=args.dest)
-    general_settings = io.load_root_settings(paths).get('general_settings', {})
-
-    cfd_lib, stru_lib = io.load_wrapper_libs(paths)
-    # Wrapper must share same instance of 'SharedData()'
-    shared_data = SharedData()
-    cfd_wrapper = cfd_lib.Wrapper(shared_data)
-    stru_wrapper = stru_lib.Wrapper(shared_data)
+    settings = io.Settings(root_dir=args.dest)
+    cfd_wrapper, stru_wrapper = settings.get_wrappers()
 
     # ===== Clean up before running a new analysis =====
     if args.clean or args.clean_only:
@@ -92,6 +88,7 @@ def standard_run(args):
             return
 
     # ===== Run the aeroelastic analysis =====
-    settings = general_settings.get('static_loop', {})
-    static = StaticAeroelasticity(cfd_wrapper, stru_wrapper, **settings)
-    static.find_equilibrium()
+    settings_static = settings.settings.get('general_settings', {}).get('static_loop', {})
+    static = StaticAeroelasticity(cfd_wrapper, stru_wrapper, **settings_static)
+    results = static.find_equilibrium()
+    return results

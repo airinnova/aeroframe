@@ -24,7 +24,6 @@
 File IO
 """
 
-import re
 import json
 import importlib
 import os
@@ -33,25 +32,8 @@ from commonlibs.fileio.paths import ProjectPaths
 from commonlibs.fileio.json import dump_pretty_json
 from commonlibs.dicts.schemadicts import get_default_value_dict
 
+from aeroframe.data.shared import SharedData
 
-class PATHS:
-
-    class FILES:
-
-        DEFAULT_SETTINGS = 'aeroframe_settings.json'
-
-    class DIRS:
-
-        CFD = 'cfd'
-        STRUCTURE = 'structure'
-        SHARED_FROM_CFD = 'from_cfd'
-        SHARED_FROM_STRUCTURE = 'from_structure'
-
-    class GROUPS:
-
-        INIT = 'init'
-        CFD = 'cfd'
-        STRUCTURE = 'structure'
 
 DEFAULT_SETTINGS_DICT = {
     'general_settings': {
@@ -83,7 +65,24 @@ DEFAULT_SETTINGS_DICT = {
 }
 
 
-class FileStructure:
+class PATHS:
+
+    class FILES:
+
+        DEFAULT_SETTINGS = 'aeroframe_settings.json'
+
+    class DIRS:
+
+        CFD = 'cfd'
+        STRUCTURE = 'structure'
+
+    class GROUPS:
+
+        INIT = 'init'
+        CFD = 'cfd'
+        STRUCTURE = 'structure'
+
+class Settings:
 
     def __init__(self, root_dir=None, make_dirs=True):
         """
@@ -99,6 +98,13 @@ class FileStructure:
 
         if root_dir is None:
             root_dir = os.getcwd()
+
+# ==============================
+        self.settings = None
+
+        self.cfd_wrapper = None
+        self.stru_wrapper = None
+# ==============================
 
         self.paths = ProjectPaths(root_dir)
 
@@ -148,86 +154,36 @@ class FileStructure:
             settings_dict = get_default_value_dict(DEFAULT_SETTINGS_DICT)
             dump_pretty_json(settings_dict, fp)
 
+# ==============================
+# ==============================
+    def load_root_settings(self):
+        """
+        Load and return the root settings file
 
-def load_root_settings(aeroframe_files):
-    """
-    Load and return the root settings file
+        Args:
+            :aeroframe_files: file structure of aeroframe program
+        """
 
-    Args:
-        :aeroframe_files: file structure of aeroframe program
-    """
+        with open(self.paths("f_root_settings"), "r") as fp:
+            self.settings = json.load(fp)
 
-    with open(aeroframe_files.paths("f_root_settings"), "r") as fp:
-        settings = json.load(fp)
+    def get_wrappers(self):
+        """
+        Load wrapper modules dynamically
 
-    return settings
+        Args:
+            :aeroframe_files: file structure of aeroframe program
+        """
 
+        self.load_root_settings()
 
-def load_wrapper_libs(aeroframe_files):
-    """
-    Load wrapper modules dynamically
+        self.cfd_lib = importlib.import_module(self.settings['cfd_model']['wrapper'])
+        self.stru_lib = importlib.import_module(self.settings['structure_model']['wrapper'])
 
-    Args:
-        :aeroframe_files: file structure of aeroframe program
-    """
-
-    settings = load_root_settings(aeroframe_files)
-    cfd = importlib.import_module(settings['cfd_model']['wrapper'])
-    stru = importlib.import_module(settings['structure_model']['wrapper'])
-
-    return cfd, stru
-
-
-def sed_like_replace(filename, replacement_list):
-    """
-    Replace expressions in a "sed"-like style
-
-    Args:
-        :filename: name of file to modify
-        :replacement_list: list of lists, each entry with ["old", "new"]
-    """
-
-    with open(filename, "r") as fp:
-        lines = fp.readlines()
-
-    with open(filename, "w") as fp:
-        for line in lines:
-            mod_line = string_replace(replacement_list, line)
-            fp.write(mod_line)
-
-
-def string_replace(replacement_list, string):
-    """
-    Replace multiple expressions in a string
-
-    Args:
-        :replacement_list: list of lists, each entry with ["old", "new"]
-        :string: string to modify
-
-    Returns:
-        :mod_string: modified string
-    """
-
-    for replacement in replacement_list:
-        orig, new = replacement
-        string = re.sub(orig, new, string)
-
-    return string
-
-
-def is_string_in_file(string, filepath):
-    """
-    Check if a string is in a file
-
-    Args:
-        :string: string to search for
-        :filepath: path of file
-
-    Returns:
-        :is_found: True if found, False otherwise
-    """
-
-    if string in open(filepath).read():
-        return True
-
-    return False
+        # Wrapper must share same instance of 'SharedData()'
+        shared_data = SharedData()
+        cfd_wrapper = self.cfd_lib.Wrapper(shared_data)
+        stru_wrapper = self.stru_lib.Wrapper(shared_data)
+        return cfd_wrapper, stru_wrapper
+# ==============================
+# ==============================
