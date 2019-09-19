@@ -59,17 +59,8 @@ def standard_run(args):
         :results: (dict) Results from static analysis
     """
 
-    if args.verbose:
-        level = 'info'
-    elif args.debug:
-        level = 'debug'
-    elif args.quiet:
-        level = 'quiet'
-    else:
-        level = 'default'
-
     # ===== Logging =====
-    hlogger.init(log_filename="log.txt", level=level)
+    hlogger.init(log_filename="log.txt", level=args)
     logger = logging.getLogger()
     logger.info(hlogger.decorate(f"{__prog_name__} {__version__}"))
 

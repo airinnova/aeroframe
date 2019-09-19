@@ -16,7 +16,7 @@ DESCRIPTION = 'AeroFrame (Aeroelastic Framework)'
 URL = 'https://github.com/airinnova/aeroframe'
 REQUIRES_PYTHON = '>=3.6.0'
 REQUIRED = [
-    'commonlibs>=0.3.2',
+    'commonlibs>=0.3.3',
 ]
 README = 'README.rst'
 PACKAGE_DIR = 'src/lib/'
