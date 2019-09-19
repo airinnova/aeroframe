@@ -8,6 +8,11 @@ Welcome to |name|'s documentation!
 
 |name_bold| (|name_long|) is a modular framework for partitioned aeroelastic analyses. The framework couples separate solvers for structure and CFD_. It coordinates the analysis and the exchange of loads and deformations. Currently, |name| supports *static*  aeroelastic analyses.
 
+.. image:: _static/images/cover_img.png
+   :width: 400 px
+   :alt: Cover
+   :align: center
+
 .. toctree::
    :maxdepth: 2
    :caption: User guide
