@@ -7,11 +7,15 @@ Wrapper module for aeroframe
 
 # Author: Aaron Dettmann
 
+import json
+
 import numpy as np
+from commonlibs.fileio.json import dump_pretty_json
+from pytornado.stdfun.run import standard_run, StdRunArgs
 
 from aeroframe.templates.wrappers import AeroWrapper
+from aeroframe.interpol.translate import translate_from_line_to_line
 
-from pytornado.stdfun.run import standard_run, StdRunArgs
 
 class Wrapper(AeroWrapper):
 
@@ -26,12 +30,35 @@ class Wrapper(AeroWrapper):
         results = standard_run(args)
         bound_leg_midpoints = results['lattice'].bound_leg_midpoints
         self.points_of_attack_undeformed = bound_leg_midpoints
+
+        # ======================================
+        model_file = 'cfd/aircraft/WindTunnelModel.json'
+        with open(model_file, "r") as fp:
+            model = json.load(fp)
+
+        vertices = model['wings'][0]['segments'][0]['vertices']
+        a = np.array(vertices['a'])
+        b = np.array(vertices['b'])
+        self.le_line = np.array((a, (a+b)/2, b))
+        print(self.le_line)
+        # ======================================
         # ---------
 
     def run_analysis(self, turn_off_deform=False):
         """
         TODO
         """
+
+        def_file = 'cfd/deformation/WindTunnelModel.json'
+
+        # Fetch deformation field
+        print(self.shared.structure.deformations)
+        def_field = self.shared.structure.deformations.get('Wing', None)
+        if def_field is not None:
+            le_def_field = translate_from_line_to_line(def_field, target_line=self.le_line)
+
+            # Write to file
+            write_def_field_for_pytornado(def_file, def_field)
 
         args = StdRunArgs(run='cfd/settings/WindTunnelModel.json', verbose=True)
         results = standard_run(args)
@@ -67,8 +94,35 @@ class Wrapper(AeroWrapper):
         # TODO
 
 
+def write_def_field_for_pytornado(output_file, def_field):
+    """
+    TODO
+    """
 
+    output = [
+        {
+            'wing': 'Wing',
+            'segment': 'WingSegment1',
+            'mirror': False,
+            'deform': [
+                {
+                    'eta': 0,
+                    'deform': list(def_field[0, 3:9]),
+                },
+                {
+                    'eta': 0.5,
+                    'deform': list(def_field[1, 3:9]),
+                },
+                {
+                    'eta': 1,
+                    'deform': list(def_field[2, 3:9]),
+                },
+            ],
+        }
+    ]
 
+    with open(output_file, "w") as fp:
+        dump_pretty_json(output, fp)
 
 
 

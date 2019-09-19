@@ -51,7 +51,7 @@ class Wrapper(StructureWrapper):
         # ----- Share loads -----
         logger.info("Sharing loads...")
         frame = results['frame']
-        self.shared.structure.deformation = frame.deformation.get_displacement_fields(frame)
+        self.shared.structure.deformations = frame.deformation.get_displacement_fields(frame)
 
     def clean(self):
         """
