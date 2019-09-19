@@ -1,0 +1,128 @@
+{
+    "uid": "WindTunnelModel",
+    "version": "1.0",
+    "refs": {
+        "area": 0.56,
+        "span": 1.6,
+        "chord": 0.35,
+        "gcenter": [
+            0,
+            0,
+            0
+        ],
+        "rcenter": [
+            0,
+            0,
+            0
+        ]
+    },
+    "wings": [
+        {
+            "uid": "Wing",
+            "symmetry": 0,
+            "segments": [
+                {
+                    "uid": "WingSegment1",
+                    "vertices": {
+                        "a": [
+                            -0.175,
+                            0,
+                            0
+                        ],
+                        "b": [
+                            -0.175,
+                            1.6,
+                            0
+                        ],
+                        "c": [
+                            0.175,
+                            1.6,
+                            0
+                        ],
+                        "d": [
+                            0.175,
+                            0,
+                            0
+                        ]
+                    },
+                    "airfoils": {
+                        "inner": "NACA0000",
+                        "outer": "NACA0000"
+                    },
+                    "panels": {
+                        "num_c": null,
+                        "num_s": null
+                    }
+                }
+            ],
+            "controls": [
+                {
+                    "uid": "Flap1",
+                    "device_type": "flap",
+                    "deflection": 10,
+                    "segment_uid": {
+                        "inner": "WingSegment1",
+                        "outer": "WingSegment1"
+                    },
+                    "rel_vertices": {
+                        "eta_inner": 0.0,
+                        "eta_outer": 0.33333,
+                        "xsi_inner": 0.829,
+                        "xsi_outer": 0.829
+                    },
+                    "rel_hinge_vertices": {
+                        "xsi_inner": 0.829,
+                        "xsi_outer": 0.829
+                    },
+                    "panels": {
+                        "num_c": 5
+                    }
+                },
+                {
+                    "uid": "Flap2",
+                    "device_type": "flap",
+                    "deflection": 10,
+                    "segment_uid": {
+                        "inner": "WingSegment1",
+                        "outer": "WingSegment1"
+                    },
+                    "rel_vertices": {
+                        "eta_inner": 0.33333,
+                        "eta_outer": 0.66666,
+                        "xsi_inner": 0.829,
+                        "xsi_outer": 0.829
+                    },
+                    "rel_hinge_vertices": {
+                        "xsi_inner": 0.829,
+                        "xsi_outer": 0.829
+                    },
+                    "panels": {
+                        "num_c": 5
+                    }
+                },
+                {
+                    "uid": "Flap3",
+                    "device_type": "flap",
+                    "deflection": 10,
+                    "segment_uid": {
+                        "inner": "WingSegment1",
+                        "outer": "WingSegment1"
+                    },
+                    "rel_vertices": {
+                        "eta_inner": 0.66666,
+                        "eta_outer": 1.0,
+                        "xsi_inner": 0.829,
+                        "xsi_outer": 0.829
+                    },
+                    "rel_hinge_vertices": {
+                        "xsi_inner": 0.829,
+                        "xsi_outer": 0.829
+                    },
+                    "panels": {
+                        "num_c": 5
+                    }
+                }
+            ]
+        }
+    ]
+}

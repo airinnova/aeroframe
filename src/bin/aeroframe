@@ -8,25 +8,16 @@ Command line program interface
 # Authors:
 # * Aaron Dettmann
 
-import logging
 import argparse
-import sys
 import os
 
-import commonlibs.logger as hlogger
+from aeroframe.stdfun.stdrun import standard_run
+from aeroframe.stdfun.setup import setup_project
+from aeroframe import __prog_name__
 
-import aeroframe.fileio as io
-from aeroframe.analyses.static import StaticAeroelasticity
-from aeroframe.data.shared import SharedData
-
-logger = logging.getLogger(__name__)
-
-__prog_name__ = 'aeroframe'
-
-
-def main():
+def cli():
     """
-    Top level procedure
+    Command line interface
     """
 
     # ===== Arguments =====
@@ -35,7 +26,7 @@ def main():
 
     # ----- Mode 'run' -----
     sub = subparsers.add_parser('run', help='run an analysis')
-    sub.add_argument('filename', metavar='input file', help='input file', type=str)
+    sub.add_argument('--dest', help='{__prog_name__} directory', default=os.getcwd())
 
     group = sub.add_mutually_exclusive_group()
     group.add_argument('-c', '--clean', help='remove old project files', action='store_true')
@@ -49,76 +40,17 @@ def main():
     # ----- Mode 'init' -----
     sub = subparsers.add_parser('init', help='initialise a project')
     sub.add_argument('-f', '--force', help='overwrite existing files', action='store_true')
-    sub.add_argument('-d', '--dest', help='destination directory', default=os.getcwd())
+    sub.add_argument('--dest', help='destination directory', default=os.getcwd())
 
     args = parser.parse_args()
 
     if args.exec_mode == 'run':
-        #######################
-        # TODO: Move program logic to 'stdrun' module
-        #######################
-
-        if args.verbose:
-            level = 'info'
-        elif args.debug:
-            level = 'debug'
-        elif args.quiet:
-            level = 'quiet'
-        else:
-            level = 'default'
-
-        # ===== Logging =====
-        hlogger.init(log_filename="log.txt", level=level)
-        logger = logging.getLogger()
-        logger.info(hlogger.decorate(f"{__prog_name__}"))
-
-        root_dir = os.path.dirname(args.filename)
-
-        # ===== Initialise =====
-        paths = io.FileStructure(root_dir)
-        general_settings = io.load_root_settings(paths).get('general_settings', {})
-
-        cfd_lib, stru_lib = io.load_wrapper_libs(paths)
-        cfd_wrapper = cfd_lib.AeroWrapper(paths)
-        stru_wrapper = stru_lib.StructureWrapper(paths)
-
-        #######################
-        # shared_data = SharedData()
-        # cfd_wrapper.shared_data = shared_data
-        # stru_wrapper.shared_data = shared_data
-        #######################
-
-        # ===== Clean up before running a new analysis =====
-        if args.clean or args.clean_only:
-            logger.info("Removing old files...")
-            cfd_wrapper.clean()
-            stru_wrapper.clean()
-
-            if args.clean_only:
-                logger.info("Exiting...")
-                return
-
-        # ===== Run the aeroelastic analysis =====
-        settings = general_settings.get('static_loop', {})
-        static = StaticAeroelasticity(cfd_wrapper, stru_wrapper, **settings)
-        static.find_equilibrium()
-
+        standard_run(args)
     elif args.exec_mode == 'init':
-        paths = io.FileStructure(root_dir=args.dest, make_dirs=True)
-
-        try:
-            paths.init_emtpy_settings_file(overwrite=args.force)
-        except FileExistsError:
-            err_msg = f"Settings file '{io.PATHS.FILES.DEFAULT_SETTINGS}' exists.\n" + \
-                       "Will not overwrite, unless forced (hint: --force)"
-            print(err_msg, sep='')
-            sys.exit(1)
-
+        setup_project(args)
     else:
         parser.print_help()
 
 
-
-
 if __name__ == '__main__':
-    main()
+    cli()

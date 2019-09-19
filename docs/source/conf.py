@@ -78,6 +78,7 @@ rst_prolog = f"""
 .. |name_bold| replace:: **{NAME}**
 .. _JSON: https://json.org/
 .. _CFD: https://en.wikipedia.org/wiki/Computational_fluid_dynamics
+.. _FEM: https://en.wikipedia.org/wiki/Finite_element_method
 .. _Airinnova: http://airinnova.se/
 .. _Airinnova AB: http://airinnova.se/
 .. _PyPI: https://pypi.org/project/aeroframe/

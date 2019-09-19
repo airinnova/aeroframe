@@ -21,11 +21,36 @@
 # * Aaron Dettmann
 
 """
-Template for the structure wrapper
+High-level wrappers for setup
 """
 
-from aeroframe.templates.wrappers import StructureWrapper
+import sys
+
+import aeroframe.fileio as io
 
 
-class Wrapper(StructureWrapper):
-    pass
+class ArgsSetup:
+
+    def __init__(self):
+
+        dest = os.getcwd()
+        force = False
+
+
+def setup_project(args):
+    """
+    Setup a project directory
+
+    Args:
+        :args: (obj) Instance of form 'ArgsSetup'
+    """
+
+    paths = io.FileStructure(root_dir=args.dest, make_dirs=True)
+
+    try:
+        paths.init_emtpy_settings_file(overwrite=args.force)
+    except FileExistsError:
+        err_msg = f"Settings file '{io.PATHS.FILES.DEFAULT_SETTINGS}' exists.\n" + \
+                   "Will not overwrite, unless forced (hint: --force)"
+        print(err_msg, sep='')
+        sys.exit(1)

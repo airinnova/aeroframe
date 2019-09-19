@@ -22,61 +22,10 @@
 
 """
 Template for the CFD wrapper
-
-This module demomstrates minimal requierement for the CFD wrapper
 """
 
-import logging
-
-logger = logging.getLogger(__name__)
-
-__wrapper_name__ = 'CFD dummy wrapper'
+from aeroframe.templates.wrappers import AeroWrapper
 
 
-class AeroWrapper:
-
-    def __init__(self, aeroframe_files):
-        """
-        Setup routine
-
-        Args:
-            :aeroframe_files: file structure of aeroframe program
-
-        Required attributes:
-            :last_solution: some data structure with the last solution of the
-                            CFD analysis (will be passed on once final solution
-                            is found)
-        """
-
-        # Setup routines go here
-        logger.info("Setup...")
-
-        self.aeroframe_files = aeroframe_files
-
-        # Required
-        self.last_solution = None
-
-    def run_analysis(self, turn_off_deform=False):
-        """
-        Run a full analysis
-
-        Note:
-            * Computed loads are shared
-
-        Args:
-            :turn_off_deform: flag which can be used to turn off all deformations for a certain run
-        """
-
-        logger.info("Running analysis...")
-
-        self.share_loads()
-
-    def share_loads(self):
-        logger.info("Sharing loads...")
-
-    def clean(self):
-        """
-        Remove old result file from a previous analysis
-        """
-
-        logger.info("Cleaning...")
+class Wrapper(AeroWrapper):
+    pass
