@@ -26,6 +26,7 @@ Welcome to |name|'s documentation!
    :caption: Theory
 
    theory/index
+   theory/coupling
 
 .. toctree::
    :maxdepth: 2

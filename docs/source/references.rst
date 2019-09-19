@@ -20,3 +20,9 @@ Theoretical background
 .. [FePF01] Felippa, C.A. ; Park, K.C. ; Farhat, C.: Partitioned analysis of coupled mechanical systems. In: Computer Methods in Applied Mechanics and Engineering 190 (2001), No. 24, 3247–3270. http://dx.doi.org/10.1016/S0045-7825(00)00391-1 – ISSN 0045–7825
 
 .. [RBBW10] Reimer, L. ; Braun, C. ; Behr, M., Wellmer, G. ; Ballmann, J. ; Schröder, W. (Ed.): Development of a Modular Method for Computational Aero-structural Analysis of Aircraft. In: Summary of Flow Modulation and Fluid-Structure Interaction Findings: Results of the Collaborative Research Center SFB 401 at the RWTH Aachen University, Aachen, Germany, 1997–2008. Vol. 109. Springer Berlin Heidelberg, 2010. – pp. 205–238. – ISBN 978–3–642–04087–0
+
+.. [Megs16] Megson, T.H.G.: Aircraft Structures for Engineering Students. 6th edition. Oxford, England; Waltham, Mass. : Butterworth-Heinemann, 2016 (Elsevier Aerospace Engineering Series). – ISBN 0–08–096906–2
+
+.. [ToWi09] E. Torenbeek ; H. Wittenberg: Flight physics – Essentials of Aeronautical Disciplines and Technology, with Historical Notes. Dordrecht; London : Springer, 2009. – ISBN 1–4020–8664–4
+
+.. [RoWH14] Rossow, C.-C. ; Wolf, K. ; Horst, P. (Ed.): Handbuch der Luftfahrzeugtechnik. München : Hanser, 2014. – ISBN 978–3–446–42341–1
