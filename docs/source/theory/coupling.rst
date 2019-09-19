@@ -39,4 +39,5 @@ The conceptual idea of connecting a CFD_ and a structure model is illustrated in
 .
 
 .. note::
+
     This summary is based on/copied from [Dett19]_ with the authors permission.
