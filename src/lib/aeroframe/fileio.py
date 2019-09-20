@@ -180,10 +180,14 @@ class Settings:
         self.cfd_lib = importlib.import_module(self.settings['cfd_model']['wrapper'])
         self.stru_lib = importlib.import_module(self.settings['structure_model']['wrapper'])
 
+        root_path = root_path = self.paths('root')
+        cfd_settings = self.settings['cfd_model'].get('exec_settings', {})
+        stru_settings = self.settings['structure_model'].get('exec_settings', {})
+
         # Wrapper must share same instance of 'SharedData()'
         shared_data = SharedData()
-        cfd_wrapper = self.cfd_lib.Wrapper(shared_data)
-        stru_wrapper = self.stru_lib.Wrapper(shared_data)
+        cfd_wrapper = self.cfd_lib.Wrapper(root_path, shared_data, cfd_settings)
+        stru_wrapper = self.stru_lib.Wrapper(root_path, shared_data, stru_settings)
         return cfd_wrapper, stru_wrapper
 # ==============================
 # ==============================

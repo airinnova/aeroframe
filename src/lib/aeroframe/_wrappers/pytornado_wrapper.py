@@ -19,8 +19,8 @@ from aeroframe.interpol.translate import translate_from_line_to_line
 
 class Wrapper(AeroWrapper):
 
-    def __init__(self, shared):
-        super().__init__(shared)
+    def __init__(self, root_path, shared, settings):
+        super().__init__(root_path, shared, settings)
 
         # ---------
         # TODO:

@@ -29,81 +29,87 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class AeroWrapper:
+class GenericWrapper:
 
-    def __init__(self, shared):
+    def __init__(self, root_path, shared, settings):
         """
-        Wrapper for the aerodynamics solver
+        Wrapper base class
 
         Args:
+            :root_path: Path to the project root directory
             :shared: Instance of 'SharedData'
+            :settings: Specific execution settings
 
         Attr:
-            :last_solution: Some data structure with the last solution of the
-                            CFD analysis (will be passed on once final solution
-                            is found)
+            :last_solution: Some data structure with the last analysis solution
+                            (will be passed on once final solution is found)
         """
 
-        # Setup routines go here
-        logger.info("Initialising CFD wrapper...")
+        logger.info("Initialising wrapper...")
 
-        # Shared data
+        self.root_path = root_path
         self.shared = shared
+        self.settings = settings
 
-        # Required
         self.last_solution = None
 
-    def run_analysis(self, turn_off_deform=False):
+    def run_analysis(self):
         """
-        Run a full analysis
-
-        Note:
-            * Computed loads are shared
-
-        Args:
-            :turn_off_deform: flag which can be used to turn off all deformations for a certain run
+        Run a full analysis and share data
         """
 
         logger.info("Running analysis...")
-        logger.info("Sharing loads...")
+        logger.info("Sharing data...")
 
     def clean(self):
         """
-        Remove old result file from a previous analysis
+        Remove old/temporary files from a previous analysis
         """
 
         logger.info("Cleaning...")
 
 
-class StructureWrapper:
+class AeroWrapper(GenericWrapper):
 
-    def __init__(self, shared):
+    def __init__(self, root_path, shared, settings):
         """
-        Setup
+        Wrapper for the CFD solver
 
         Args:
+            :root_path: Path to the project root directory
             :shared: Instance of 'SharedData'
+            :settings: Specific execution settings
         """
 
-        # Setup routines go here
+        super().__init__(root_path, shared, settings)
+        logger.info("Initialising CFD wrapper...")
+
+    def run_analysis(self, turn_off_deform=False):
+        """
+        Run a full CFD analysis
+
+        Args:
+            :turn_off_deform: Flag which can be used to turn off all
+                              deformations for a certain run
+        """
+
+        super().run_analysis()
+
+
+class StructureWrapper(GenericWrapper):
+
+    def __init__(self, root_path, shared, settings):
+        """
+        Wrapper for the structure solver
+
+        Args:
+            :root_path: Path to the project root directory
+            :shared: Instance of 'SharedData'
+            :settings: Specific execution settings
+        """
+
+        super().__init__(root_path, shared, settings)
         logger.info("Initialising structure wrapper...")
-
-        # Shared data
-        self.shared = shared
-
-        # Required
-        self.last_solution = None
-
-    def run_analysis(self):
-        """
-        Run a full analysis
-
-        Note:
-            * Computed deformations are shared
-        """
-
-        logger.info("Running analysis...")
-        logger.info("Sharing deformations...")
 
     def check_convergence(self):
         """
@@ -119,10 +125,3 @@ class StructureWrapper:
 
         logger.info("Checking convergence...")
         return 1
-
-    def clean(self):
-        """
-        Remove old result file from a previous analysis
-        """
-
-        logger.info("Cleaning...")

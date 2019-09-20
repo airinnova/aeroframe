@@ -18,8 +18,8 @@ logger = logging.getLogger(__name__)
 
 class Wrapper(StructureWrapper):
 
-    def __init__(self, shared):
-        super().__init__(shared)
+    def __init__(self, root_path, shared, settings):
+        super().__init__(root_path, shared, settings)
 
     def run_analysis(self):
         """
