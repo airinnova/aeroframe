@@ -20,11 +20,3 @@ The following diagram illustrates the coupling, and a so-called *aeroelastic loo
    Conceptual implementation of the aeroelastic loop to find static equilibria [Dett19]_
 
 The following pages describe the tool prerequisites, how the wrappers can be set up and how |name| is used.
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Getting started
-
-   tool_prerequisites
-   conventions
-   wrappers

@@ -21,6 +21,9 @@ Welcome to |name|'s documentation!
 
    user_guide/installation
    user_guide/detailed_user_guide
+   user_guide/tool_prerequisites
+   user_guide/conventions
+   user_guide/wrappers
    user_guide/tutorials
    user_guide/limitations
 
