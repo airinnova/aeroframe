@@ -2,14 +2,20 @@
 # -*- coding: utf-8 -*-
 
 """
-Wrapper module for aeroframe
+AeroFrame wrapper for PyTornado
+
+* https://github.com/airinnova/pytornado
+* Tested with version 0.5.0
+
+See documentation for PyTornado specifics
 """
 
 # Author: Aaron Dettmann
 
+from os.path import join
+from uuid import uuid4
 import json
 import os
-from uuid import uuid4
 
 import numpy as np
 from commonlibs.fileio.json import dump_pretty_json
@@ -18,28 +24,30 @@ import pytornado.stdfun.run as pyt
 from aeroframe.templates.wrappers import AeroWrapper
 from aeroframe.interpol.translate import translate_from_line_to_line
 
-
 # ---------
 # TODO:
-# - generalise for multiple wings
-# - Make sure aircraft is undeformed
+# - Generalise load sharing for multiple wings and mirrored wings
 # ---------
+
 
 class Wrapper(AeroWrapper):
 
     def __init__(self, root_path, shared, settings):
         super().__init__(root_path, shared, settings)
 
-        # File
+        # PyTornado files
         self.own_files = {}
-        self.own_files['settings'] = os.path.join(self.root_path, settings.get('run', ''))
-        self.own_files['deformation'] = os.path.join(self.root_path, 'cfd', 'deformation', f'{uuid4()}.json')
+        self.own_files['settings'] = join(self.root_path, settings.get('run', ''))
+        self.own_files['deformation_dir'] = join(self.root_path, 'cfd', 'deformation')
+        self.own_files['deformation'] = join(self.own_files['deformation_dir'], f'{uuid4()}.json')
 
         # Locate the PyTornado main settings file
         if not os.path.isfile(self.own_files['settings']):
             raise FileNotFoundError(f"PyTornado settings file '{self.own_files['settings']}' not found")
 
-        # Create empyt deformation file
+        # Create deformation folder and empty file
+        if not os.path.exists(self.own_files['deformation_dir']):
+            os.makedirs(self.own_files['deformation_dir'])
         open(self.own_files['deformation'], 'w').close()
 
         # Get the bound legs of the undeformed mesh
@@ -47,21 +55,6 @@ class Wrapper(AeroWrapper):
         results = pyt.standard_run(args=pyt.StdRunArgs(run=self.own_files['settings']))
         bound_leg_midpoints = results['lattice'].bound_leg_midpoints
         self.points_of_attack_undeformed = bound_leg_midpoints
-
-        # ======================================
-        # ======================================
-        # ======================================
-        model_file = 'cfd/aircraft/WindTunnelModel.json'
-        with open(model_file, "r") as fp:
-            model = json.load(fp)
-
-        vertices = model['wings'][0]['segments'][0]['vertices']
-        a = np.array(vertices['a'])
-        b = np.array(vertices['b'])
-        self.le_line = np.array((a, (a+b)/2, b))
-        # ======================================
-        # ======================================
-        # ======================================
 
     def run_analysis(self, turn_off_deform=False):
         """
@@ -75,28 +68,27 @@ class Wrapper(AeroWrapper):
             self._toggle_deformation(turn_on=False)
         else:
             self._toggle_deformation(turn_on=True)
+            self._write_def_field_for_pytornado()
 
-        # Fetch deformation field
-        def_field = self.shared.structure.deformations.get('Wing', None)
-        if def_field is not None:
-            le_def_field = translate_from_line_to_line(def_field, target_line=self.le_line)
+        # ----- Run the PyTornado analysis -----
+        results = pyt.standard_run(args=pyt.StdRunArgs(run=self.own_files['settings']))
+        self.last_solution = results  # Save the last solution
 
-            # Write to file
-            write_def_field_for_pytornado(self.own_files['deformation'], def_field)
-
-        args = pyt.StdRunArgs(run='cfd/settings/WindTunnelModel.json', verbose=True)
-        results = pyt.standard_run(args)
-
-        # ---------
-        # See PyTornado documentation
+        # ----- Share load data -----
+        # ==========
+        # ==========
+        # TODO:
+        # + Make work for multiple wings
+        # + Mirrored wings
+        # ==========
+        # ==========
         vlmdata = results['vlmdata']
-
         forces = np.array([vlmdata.panelwise[key] for key in ('fx', 'fy', 'fz')])
-        load_data = np.block([self.points_of_attack_undeformed, forces.T])
+        load_data = np.block([self.points_of_attack_undeformed, forces.T, np.zeros_like(forces.T)])
 
-        # Share loads
-        self.shared.cfd.loads['main_wing'] = load_data
-        # ---------
+        self.shared.cfd.loads['Wing'] = load_data
+        # ==========
+        # ==========
 
     def _toggle_deformation(self, *, turn_on=True):
         """
@@ -122,30 +114,26 @@ class Wrapper(AeroWrapper):
 
         pyt.clean_project_dir(pyt.get_settings(self.own_files['settings']))
 
+    def _write_def_field_for_pytornado(self):
+        """
+        Write the deformation field in the required PyTornado format
+        """
 
-def write_def_field_for_pytornado(output_file, def_field):
-    """
-    TODO
-    """
+        output_file = self.own_files['deformation']
+        def_fields = self.shared.structure.deformations
 
-    output = [
-        {
-            'wing': 'Wing',
-            'segment': 'WingSegment1',
-            'mirror': False,
-            'deform': [
-                {
-                    'eta': 0,
-                    'deform': list(def_field[0, 3:9]),
-                },
-                {
-                    'eta': 0.5,
-                    'deform': list(def_field[1, 3:9]),
-                },
-                {
-                    'eta': 1,
-                    'deform': list(def_field[2, 3:9]),
-                },
-            ],
-        }
-    ]
+        output = {}
+        for component, def_field in def_fields.items():
+            wing_deformation = []
+            for entry in def_field:
+                point = list(entry[0:3])
+                deformation = list(entry[3:9])
+                def_entry = {
+                    'p': point,
+                    'def': deformation,
+                }
+                wing_deformation.append(def_entry)
+            output[component] = wing_deformation
+
+        with open(output_file, "w") as fp:
+            dump_pretty_json(output, fp)
