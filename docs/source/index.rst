@@ -2,19 +2,21 @@ Welcome to |name|'s documentation!
 ==================================
 
 .. image:: _static/images/logo/logo.svg
-   :width: 150 px
+   :width: 175 px
    :alt: Logo
    :align: right
 
 |name_bold| (|name_long|) is a modular framework for partitioned aeroelastic analyses. The framework couples separate solvers for structure and CFD_. It coordinates the analysis and the exchange of loads and deformations. Currently, |name| supports *static*  aeroelastic analyses.
 
-.. image:: _static/images/cover_img.png
+.. figure:: _static/images/cover_img.png
    :width: 400 px
    :alt: Cover
    :align: center
 
+   Wing deformations in a pull-up maneuver. Aerodynamics computed with the vortex-lattice method (VLM) and the structural repsonse with a beam FEM_ model (image from [Dett19]_).
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: User guide
 
    user_guide/installation
@@ -31,7 +33,7 @@ Welcome to |name|'s documentation!
    theory/beam_models
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Links
 
    references
@@ -60,7 +62,7 @@ Welcome to |name|'s documentation!
 Licence information
 -------------------
 
-|name| was developed at `Airinnova AB`_, Stockholm.
+|name| is developed at `Airinnova AB`_, Stockholm.
 
 :Author:
     |author1|

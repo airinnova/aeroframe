@@ -1701,11 +1701,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.53824793"
-     inkscape:cx="882.74643"
-     inkscape:cy="149.81814"
+     inkscape:zoom="0.26912397"
+     inkscape:cx="536.50497"
+     inkscape:cy="-119.97344"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer5"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1025"
@@ -2802,18 +2802,8 @@
      inkscape:label="loop"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(189.87772,52.194083)">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="30.147839"
-       y="73.524826"
-       id="text1144-5-7-1-8-8-06-3"><tspan
-         sodipodi:role="line"
-         x="30.147839"
-         y="73.524826"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332"
-         id="tspan9309-7">Shared state</tspan></text>
+     transform="translate(189.87772,52.194083)"
+     style="display:inline">
     <path
        style="fill:none;stroke:#333333;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Mstart);marker-end:url(#marker2708-7-0-3)"
        d="m -114.58945,147.37052 v 42.28827 H -5.7840764"
@@ -2882,17 +2872,6 @@
     <g
        id="g1527-6"
        transform="translate(285.05019,-35.665775)" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="15.649567"
-       y="192.79375"
-       id="text1144-5-7-1-8-8-0"><tspan
-         sodipodi:role="line"
-         id="tspan1142-3-9-15-4-1-3"
-         x="15.649567"
-         y="192.79375"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332">Structure wrapper</tspan></text>
     <flowRoot
        transform="matrix(0.26458333,0,0,0.26458333,-302.89983,-25.27976)"
        style="font-style:normal;font-weight:normal;font-size:192px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -2990,17 +2969,6 @@
        id="path3802"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-180.80594"
-       y="15.318718"
-       id="text1144-5-7-1-8-82"><tspan
-         sodipodi:role="line"
-         id="tspan1142-3-9-15-4-9"
-         x="-180.80594"
-         y="15.318718"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332;font-size:8.46666667px">Start</tspan></text>
     <rect
        style="opacity:1;fill:#f2f2f2;fill-opacity:1;stroke:#333333;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
        id="rect6580"
@@ -3009,81 +2977,22 @@
        x="-185.23367"
        y="4.7547264"
        transform="rotate(-45)" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-107.51108"
-       y="156.88846"
-       id="text1144-5-7-1-8-8-06"><tspan
-         sodipodi:role="line"
-         id="tspan1142-3-9-15-4-1-2"
-         x="-107.51108"
-         y="156.88846"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332;font-size:8.46666667px">Structure API call:</tspan><tspan
-         sodipodi:role="line"
-         x="-107.51108"
-         y="169.23569"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332;font-size:8.46666667px"
-         id="tspan3461">Deformation</tspan><tspan
-         sodipodi:role="line"
-         x="-107.51108"
-         y="181.5829"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332;font-size:8.46666667px"
-         id="tspan9309">converged?</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-147.69513"
-       y="146.82356"
-       id="text1144-5-7-1-8-8-06-6"><tspan
-         sodipodi:role="line"
-         x="-147.69513"
-         y="146.82356"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332;font-size:8.46666667px"
-         id="tspan9309-8">Yes</tspan></text>
     <g
        id="g8864"
        transform="translate(0,2.528887)">
       <g
-         style="fill:#f2f2f2;stroke:#333333;stroke-width:2.87975121;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="matrix(0.37215937,0,0,0.32401202,90.143317,42.259181)"
-         id="g1688">
-        <g
-           style="fill:#f2f2f2;stroke:#333333;stroke-width:2.87975121;stroke-miterlimit:4;stroke-dasharray:none"
-           id="g4807"
-           transform="translate(162.22321,5.1283899)">
-          <rect
-             y="46.133606"
-             x="-61.515663"
-             height="60.309692"
-             width="140.89223"
-             id="rect2609-7-5-9"
-             style="opacity:1;fill:#f2f2f2;fill-opacity:1;stroke:#333333;stroke-width:2.87975121;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
-        </g>
+         transform="matrix(0.37215937,0,0,0.32401202,150.5162,43.920841)"
+         id="g4807"
+         style="fill:#f2f2f2;stroke:#333333;stroke-width:2.87975121;stroke-miterlimit:4;stroke-dasharray:none">
+        <rect
+           style="opacity:1;fill:#f2f2f2;fill-opacity:1;stroke:#333333;stroke-width:2.87975121;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+           id="rect2609-7-5-9"
+           width="140.89223"
+           height="60.309692"
+           x="-61.515663"
+           y="46.133606" />
       </g>
-      <text
-         id="text1144-5-7-1-8-8-06-3-5-5"
-         y="71.731949"
-         x="142.04825"
-         style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           id="tspan9309-7-3-6"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332"
-           y="71.731949"
-           x="142.04825"
-           sodipodi:role="line">Loads</tspan></text>
     </g>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="23.473509"
-       y="-40.699799"
-       id="text1144-5-7-1-8-8-0-2"><tspan
-         sodipodi:role="line"
-         id="tspan1142-3-9-15-4-1-3-9"
-         x="23.473509"
-         y="-40.699799"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332;font-size:8.46666667px">CFD wrapper </tspan></text>
     <circle
        id="path7486"
        style="fill:#333333;stroke:none;stroke-width:1.85989583"
@@ -3108,38 +3017,6 @@
        cx="-0.10076836"
        cy="134.1691"
        r="2.7898436" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="22.105488"
-       y="9.1159344"
-       id="text1144-5-7-1-8-82-6"><tspan
-         sodipodi:role="line"
-         id="tspan1142-3-9-15-4-9-0"
-         x="22.105488"
-         y="9.1159344"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332">CFD API call:</tspan><tspan
-         sodipodi:role="line"
-         x="22.105488"
-         y="21.463158"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332"
-         id="tspan21237">run analysis</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="10.943758"
-       y="130.97026"
-       id="text1144-5-7-1-8-82-6-6"><tspan
-         sodipodi:role="line"
-         id="tspan1142-3-9-15-4-9-0-2"
-         x="10.943758"
-         y="130.97026"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332">Structure API call:</tspan><tspan
-         sodipodi:role="line"
-         x="10.943758"
-         y="143.31749"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332"
-         id="tspan21237-6">run analysis</tspan></text>
     <rect
        style="opacity:1;fill:#f2f2f2;fill-opacity:1;stroke:#333333;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
        id="rect2609-7-9-3"
@@ -3147,17 +3024,6 @@
        height="17.430664"
        x="-189.37772"
        y="125.62675" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-185.66289"
-       y="137.54085"
-       id="text1144-5-7-1-8-82-67"><tspan
-         sodipodi:role="line"
-         id="tspan1142-3-9-15-4-9-5"
-         x="-185.66289"
-         y="137.54085"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332;font-size:8.46666667px">End</tspan></text>
     <path
        style="fill:none;stroke:#333333;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4.50000013, 1.50000004;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker2708-7-2-3)"
        d="m -143.72929,12.2288 h 29.02479"
@@ -3171,47 +3037,17 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="czzzcc" />
     <g
-       id="g8857">
-      <g
-         style="fill:#f2f2f2;stroke:#333333;stroke-width:2.72299123;stroke-miterlimit:4;stroke-dasharray:none"
-         transform="matrix(0.42921086,0,0,0.31422217,-30.133076,46.524726)"
-         id="g1643">
-        <rect
-           style="opacity:1;fill:#f2f2f2;fill-opacity:1;stroke:#333333;stroke-width:2.72299123;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
-           id="rect2609-7-5-9-8"
-           width="175.0023"
-           height="60.200779"
-           x="-84.39534"
-           y="48.326214" />
-      </g>
-      <text
-         id="text1144-5-7-1-8-8-06-3-5"
-         y="74.631432"
-         x="-64.287666"
-         style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-         xml:space="preserve"><tspan
-           id="tspan9309-7-3"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332;font-size:8.46666667px"
-           y="74.631432"
-           x="-64.287666"
-           sodipodi:role="line">Deformations</tspan></text>
+       id="g1643"
+       transform="matrix(0.42921086,0,0,0.31422217,-30.133076,46.524726)"
+       style="fill:#f2f2f2;stroke:#333333;stroke-width:2.72299123;stroke-miterlimit:4;stroke-dasharray:none">
+      <rect
+         y="48.326214"
+         x="-84.39534"
+         height="60.200779"
+         width="175.0023"
+         id="rect2609-7-5-9-8"
+         style="opacity:1;fill:#f2f2f2;fill-opacity:1;stroke:#333333;stroke-width:2.72299123;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
     </g>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-185.53679"
-       y="75.44062"
-       id="text1144-5-7-1-8-8-06-6-5"><tspan
-         sodipodi:role="line"
-         x="-185.53679"
-         y="75.44062"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332"
-         id="tspan3482">No</tspan><tspan
-         sodipodi:role="line"
-         x="-185.53679"
-         y="87.787842"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332"
-         id="tspan3552">deformation</tspan></text>
     <g
        id="g2224"
        transform="translate(-417.50017,-256.72295)">
@@ -3293,5 +3129,180 @@
            style="fill:none;stroke:#333333;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6;stroke-dasharray:1.50000004, 1.50000004;stroke-dashoffset:1.5;stroke-opacity:1" />
       </g>
     </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="text"
+     style="display:inline">
+    <text
+       transform="translate(189.87772,52.194084)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="37.521301"
+       y="74.507957"
+       id="text1144-5-7-1-8-8-06-3"><tspan
+         sodipodi:role="line"
+         x="37.521301"
+         y="74.507957"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';stroke-width:0.26458332"
+         id="tspan9309-7">Shared state</tspan></text>
+    <text
+       transform="translate(189.87772,52.194084)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="23.473509"
+       y="-40.699799"
+       id="text1144-5-7-1-8-8-0-2"><tspan
+         sodipodi:role="line"
+         id="tspan1142-3-9-15-4-1-3-9"
+         x="23.473509"
+         y="-40.699799"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332">CFD wrapper </tspan></text>
+    <text
+       transform="translate(189.87772,52.194084)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="22.105488"
+       y="9.1159344"
+       id="text1144-5-7-1-8-82-6"><tspan
+         sodipodi:role="line"
+         id="tspan1142-3-9-15-4-9-0"
+         x="22.105488"
+         y="9.1159344"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332">CFD API call:</tspan><tspan
+         sodipodi:role="line"
+         x="22.105488"
+         y="21.62109"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332"
+         id="tspan21237">run analysis</tspan></text>
+    <text
+       transform="translate(189.87772,54.722969)"
+       id="text1144-5-7-1-8-8-06-3-5-5"
+       y="71.731949"
+       x="142.04825"
+       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         id="tspan9309-7-3-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332"
+         y="71.731949"
+         x="142.04825"
+         sodipodi:role="line">Loads</tspan></text>
+    <text
+       transform="translate(189.87772,52.194084)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-58.995995"
+       y="74.631432"
+       id="text1144-5-7-1-8-8-06-3-5"><tspan
+         sodipodi:role="line"
+         x="-58.995995"
+         y="74.631432"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332"
+         id="tspan9309-7-3">Deformations</tspan></text>
+    <text
+       transform="translate(189.87772,52.194084)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="15.649567"
+       y="192.79375"
+       id="text1144-5-7-1-8-8-0"><tspan
+         sodipodi:role="line"
+         id="tspan1142-3-9-15-4-1-3"
+         x="15.649567"
+         y="192.79375"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332">Structure wrapper</tspan></text>
+    <text
+       transform="translate(189.87772,52.194084)"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-107.51108"
+       y="156.88846"
+       id="text1144-5-7-1-8-8-06"><tspan
+         sodipodi:role="line"
+         id="tspan1142-3-9-15-4-1-2"
+         x="-107.51108"
+         y="156.88846"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332">Structure API call:</tspan><tspan
+         sodipodi:role="line"
+         x="-107.51108"
+         y="169.23569"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332"
+         id="tspan3461">Deformation</tspan><tspan
+         sodipodi:role="line"
+         x="-107.51108"
+         y="181.5829"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332"
+         id="tspan9309">converged?</tspan></text>
+    <text
+       transform="translate(189.87772,52.194084)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-147.69513"
+       y="146.82356"
+       id="text1144-5-7-1-8-8-06-6"><tspan
+         sodipodi:role="line"
+         x="-147.69513"
+         y="146.82356"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332"
+         id="tspan9309-8">Yes</tspan></text>
+    <text
+       transform="translate(189.87772,52.194084)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="15.706254"
+       y="130.97026"
+       id="text1144-5-7-1-8-82-6-6"><tspan
+         sodipodi:role="line"
+         id="tspan1142-3-9-15-4-9-0-2"
+         x="15.706254"
+         y="130.97026"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332">Structure API call:</tspan><tspan
+         sodipodi:role="line"
+         x="15.706254"
+         y="143.47542"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332"
+         id="tspan21237-6">run analysis</tspan></text>
+    <text
+       transform="translate(189.87772,52.194084)"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-185.53679"
+       y="75.44062"
+       id="text1144-5-7-1-8-8-06-6-5"><tspan
+         sodipodi:role="line"
+         x="-185.53679"
+         y="75.44062"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332"
+         id="tspan3482">No</tspan><tspan
+         sodipodi:role="line"
+         x="-185.53679"
+         y="87.787842"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332"
+         id="tspan3552">deformation</tspan></text>
+    <text
+       transform="translate(189.87772,52.194084)"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-180.80594"
+       y="15.318718"
+       id="text1144-5-7-1-8-82"><tspan
+         sodipodi:role="line"
+         id="tspan1142-3-9-15-4-9"
+         x="-180.80594"
+         y="15.318718"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332">Start</tspan></text>
+    <text
+       transform="translate(189.87772,52.194084)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:9.87777805px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-185.66289"
+       y="137.54085"
+       id="text1144-5-7-1-8-82-67"><tspan
+         sodipodi:role="line"
+         id="tspan1142-3-9-15-4-9-5"
+         x="-185.66289"
+         y="137.54085"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';stroke-width:0.26458332">End</tspan></text>
   </g>
 </svg>
