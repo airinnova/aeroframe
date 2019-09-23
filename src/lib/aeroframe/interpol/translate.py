@@ -24,14 +24,73 @@
 Translate deformation fields
 """
 
-from copy import copy
-
 import numpy as np
 from commonlibs.math.vectors import rotate_vector_around_axis
 
 X_AXIS = np.array([1, 0, 0])
 Y_AXIS = np.array([0, 1, 0])
 Z_AXIS = np.array([0, 0, 1])
+
+
+def get_closest_def_field_entry(p2, def_field):
+    """
+    Return the deformation field entry closest to a point p2
+
+    Args:
+        :p2: (array) Some point in space [x, y, z]
+        :def_field: (array) Array of the displacement field
+
+    Returns:
+        :def_field: (array) closest deformation field entry (1, 9)-vector
+
+    Note:
+
+        * Closest is here defines as the minimal Euclidean norm
+    """
+
+    # TODO: Interpolate displacement field between discrete points
+    # TODO: avoid for loop, search can be done with vector operations
+
+    idx_closest = 0
+    min_dist = np.Inf
+    for i, line in enumerate(def_field):
+        p1 = line[0:3]
+        dist = np.linalg.norm(p2 - p1)
+        if dist < min_dist:
+            min_dist = dist
+            idx_closest = i
+
+    return def_field[idx_closest, :]
+
+
+def interpol_p2_deformation(p2, def_field):
+    """
+    Interpolate the deformation of a point p2 based on a given deformation
+    field entry
+
+    Args:
+        :p2: (array) Some point in space [x, y, z]
+        :def_field_entry: (array) A single row entry (1 x 9)
+
+    Returns:
+        :def_field_entry_on_target: (array) (1 x 9)
+    """
+
+    p1_def_field_entry = get_closest_def_field_entry(p2, def_field)
+
+    p1 = p1_def_field_entry[0:3]
+    p2_def = p1_def_field_entry[3:9]  # Rotation and translation at p1
+
+    # Account for rotation
+    r = np.array(p2 - p1, dtype=float)
+    rx = rotate_vector_around_axis(r, X_AXIS, p1_def_field_entry[6])
+    ry = rotate_vector_around_axis(r, Y_AXIS, p1_def_field_entry[7])
+    rz = rotate_vector_around_axis(r, Z_AXIS, p1_def_field_entry[8])
+    p2_def[0:3] += (rx-r) + (ry-r) + (rz-r)
+
+    # Paste results in target displacement field
+    def_field_entry_on_target = np.concatenate((p2, p2_def))
+    return def_field_entry_on_target
 
 
 def translate_from_line_to_line(def_field, target_line):
@@ -71,50 +130,6 @@ def translate_from_line_to_line(def_field, target_line):
 
     def_field_on_target = np.zeros((target_line.shape[0], 9))
     for i, p2 in enumerate(target_line):
-        # Deformation at point p1
-        p1_def = get_closest_def_field_entry(p2, def_field)
-        p1 = p1_def[0:3]
-        p2_def = p1_def[3:9]  # Rotation and translation at p1
-
-        # Account for rotation
-        r = np.array(p2 - p1, dtype=float)
-        rx = rotate_vector_around_axis(r, X_AXIS, p1_def[6])
-        ry = rotate_vector_around_axis(r, Y_AXIS, p1_def[7])
-        rz = rotate_vector_around_axis(r, Z_AXIS, p1_def[8])
-        p2_def[0:3] += (rx-r) + (ry-r) + (rz-r)
-
-        # Paste results in target displacement field
-        def_field_on_target[i, :] = np.concatenate((p2, p2_def))
+        def_field_on_target[i, :] = interpol_p2_deformation(p2, def_field)
 
     return def_field_on_target
-
-
-def get_closest_def_field_entry(p2, def_field):
-    """
-    Return the deformation field entry closest to a point p2
-
-    Args:
-        :p2: (array) Some point in space [x, y, z]
-        :def_field: (array) Array of the displacement field
-
-    Returns:
-        :def_field: (array) closest deformation field entry (1, 9)-vector
-
-    Note:
-
-        * Closest is here defines as the minimal Euclidean norm
-    """
-
-    # TODO: Interpolate displacement field between discrete points
-    # TODO: avoid for loop, search can be done with vector operations
-
-    idx_closest = 0
-    min_dist = np.Inf
-    for i, line in enumerate(def_field):
-        p1 = line[0:3]
-        dist = np.linalg.norm(p2 - p1)
-        if dist < min_dist:
-            min_dist = dist
-            idx_closest = i
-
-    return def_field[idx_closest, :]
