@@ -1,7 +1,7 @@
 {
     "aero": {
-        "airspeed": 21,
-        "alpha": 0,
+        "airspeed": 12,
+        "alpha": 0.1,
         "beta": 0,
         "rate_P": 0.0,
         "rate_Q": 0.0,

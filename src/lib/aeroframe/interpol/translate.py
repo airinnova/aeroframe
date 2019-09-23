@@ -49,17 +49,9 @@ def get_closest_def_field_entry(p2, def_field):
     """
 
     # TODO: Interpolate displacement field between discrete points
-    # TODO: avoid for loop, search can be done with vector operations
 
-    idx_closest = 0
-    min_dist = np.Inf
-    for i, line in enumerate(def_field):
-        p1 = line[0:3]
-        dist = np.linalg.norm(p2 - p1)
-        if dist < min_dist:
-            min_dist = dist
-            idx_closest = i
-
+    distances = np.linalg.norm(def_field[:, 0:3] - p2.reshape((1, 3)), axis=1)
+    idx_closest = np.where(distances == np.amin(distances))[0][0]
     return def_field[idx_closest, :]
 
 
@@ -91,6 +83,25 @@ def interpol_p2_deformation(p2, def_field):
     # Paste results in target displacement field
     def_field_entry_on_target = np.concatenate((p2, p2_def))
     return def_field_entry_on_target
+
+
+def get_deformed_p2(p2, def_field):
+    """
+    TODO
+
+    Args:
+        :p2: (array) Some point in space [x, y, z]
+        :def_field_entry: (array) A single row entry (1 x 9)
+
+    Returns:
+        :p2_deformed: (array) (1 x 3)
+    """
+
+    p2_def_field_entry = interpol_p2_deformation(p2, def_field)
+    p2 = p2_def_field_entry[0:3]
+    u_xyz = p2_def_field_entry[3:6]
+    p2_deformed = p2 + u_xyz
+    return p2_deformed
 
 
 def translate_from_line_to_line(def_field, target_line):

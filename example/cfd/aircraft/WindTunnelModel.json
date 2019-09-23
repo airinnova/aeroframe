@@ -59,7 +59,7 @@
                 {
                     "uid": "Flap1",
                     "device_type": "flap",
-                    "deflection": 10,
+                    "deflection": 0,
                     "segment_uid": {
                         "inner": "WingSegment1",
                         "outer": "WingSegment1"
@@ -81,7 +81,7 @@
                 {
                     "uid": "Flap2",
                     "device_type": "flap",
-                    "deflection": 10,
+                    "deflection": 0,
                     "segment_uid": {
                         "inner": "WingSegment1",
                         "outer": "WingSegment1"
@@ -103,7 +103,7 @@
                 {
                     "uid": "Flap3",
                     "device_type": "flap",
-                    "deflection": 10,
+                    "deflection": 0,
                     "segment_uid": {
                         "inner": "WingSegment1",
                         "outer": "WingSegment1"

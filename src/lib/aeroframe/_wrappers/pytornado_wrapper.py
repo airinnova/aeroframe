@@ -23,6 +23,7 @@ import pytornado.stdfun.run as pyt
 
 from aeroframe.templates.wrappers import AeroWrapper
 from aeroframe.interpol.translate import translate_from_line_to_line
+from aeroframe.fileio.serialise import dump_json_def_field
 
 # ---------
 # TODO:
@@ -68,7 +69,7 @@ class Wrapper(AeroWrapper):
             self._toggle_deformation(turn_on=False)
         else:
             self._toggle_deformation(turn_on=True)
-            self._write_def_field_for_pytornado()
+            dump_json_def_field(self.own_files['deformation'], self.shared.structure.deformations)
 
         # ----- Run the PyTornado analysis -----
         results = pyt.standard_run(args=pyt.StdRunArgs(run=self.own_files['settings']))
@@ -113,27 +114,3 @@ class Wrapper(AeroWrapper):
         """
 
         pyt.clean_project_dir(pyt.get_settings(self.own_files['settings']))
-
-    def _write_def_field_for_pytornado(self):
-        """
-        Write the deformation field in the required PyTornado format
-        """
-
-        output_file = self.own_files['deformation']
-        def_fields = self.shared.structure.deformations
-
-        output = {}
-        for component, def_field in def_fields.items():
-            wing_deformation = []
-            for entry in def_field:
-                point = list(entry[0:3])
-                deformation = list(entry[3:9])
-                def_entry = {
-                    'p': point,
-                    'def': deformation,
-                }
-                wing_deformation.append(def_entry)
-            output[component] = wing_deformation
-
-        with open(output_file, "w") as fp:
-            dump_pretty_json(output, fp)
