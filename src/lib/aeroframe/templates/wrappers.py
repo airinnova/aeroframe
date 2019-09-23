@@ -135,16 +135,16 @@ class StructureWrapper(GenericWrapper):
     def solution_before_last(self):
         return self._solution_before_last
 
-    def get_max_rel_diff(self):
+    def get_max_abs_diff(self):
         """
-        Return a relative difference between the deformations of the two analyses
+        Return the absolute difference between the deformations of the two analyses
 
         Note:
             * Deformations are evaluated at certain control points (here all
               named nodes)
 
         Returns:
-            :max_rel_diff: maximum relative difference between last and CG positions
+            :max_abs_diff: (float) Maximum absolute difference
         """
 
         logger.info("Checking convergence...")

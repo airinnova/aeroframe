@@ -2,7 +2,7 @@
     "general_settings": {
         "static_loop": {
             "max_iterations": 15,
-            "rel_conv_lim": 0.05
+            "abs_conv_lim": 0.001
         }
     },
     "cfd_model": {

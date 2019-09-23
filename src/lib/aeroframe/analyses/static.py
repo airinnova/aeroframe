@@ -34,25 +34,26 @@ logger = logging.getLogger(__name__)
 class StaticAeroelasticity:
 
     def __init__(self, cfd_wrapper, stru_wrapper,
-                 max_iterations=10, rel_conv_lim=0.05):
+                 max_iterations=10, abs_conv_lim=0.005):
         """
         Static aeroelastic analysis
 
         Attributes:
-            :cfd: CFD wrapper class
-            :structure: structure wrapper class
-            :max_iters: maximum number of iterations
-            :rel_conv_lim: relative convergence limit
+            :cfd: (obj) CFD wrapper class
+            :structure: (obj) Structure wrapper class
+            :max_iters: (int) Maximum number of iterations
+            :abs_conv_lim: (float) Absolute convergence limit
 
         Note:
-            * The analysis is considered converged if the deformation between
-              last two analyses is smaller than the relative convergence limit
+            * The analysis is considered converged if the deformation
+              between last two analyses is smaller than a defined absolute
+              convergence limit
         """
 
         self.cfd = cfd_wrapper
         self.stru = stru_wrapper
         self.max_iters = max_iterations
-        self.rel_conv_lim = rel_conv_lim
+        self.abs_conv_lim = abs_conv_lim
 
     def find_equilibrium(self):
         """
@@ -84,10 +85,10 @@ class StaticAeroelasticity:
 
             n += 1
 
-            max_rel_def_diff = self.stru.get_max_rel_diff()
-            logger.info(f"The maximum rel. difference is {(100*max_rel_def_diff):.2f} %")
+            max_abs_def_diff = self.stru.get_max_abs_diff()
+            logger.info(f"The maximum abs. difference is {(max_abs_def_diff):.2f}")
 
-            if abs(max_rel_def_diff) < self.rel_conv_lim:
+            if abs(max_abs_def_diff) < self.abs_conv_lim:
                 logger.info(f"Solution has converged (loop {n})...")
                 has_converged = True
                 break

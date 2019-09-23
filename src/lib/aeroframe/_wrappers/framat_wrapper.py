@@ -59,9 +59,9 @@ class Wrapper(StructureWrapper):
 
         clean_project_dir(FileStructure(self.own_files['model_file']))
 
-    def get_max_rel_diff(self):
+    def get_max_abs_diff(self):
         """
-        Return the maximum relative difference between the last two solutions
+        Return the maximum absolute difference between the last two solutions
 
         Note:
 
@@ -75,10 +75,10 @@ class Wrapper(StructureWrapper):
         frame_before_last = self.solution_before_last['frame']
         U_last = frame_last.deformation.U
         U_before_last = frame_before_last.deformation.U
-        U_rel_diff = np.amax(np.absolute((U_last - U_before_last)/U_last))
+        U_abs_diff = np.amax(np.absolute((U_last - U_before_last)))
 
-        print(U_rel_diff)
-        return U_rel_diff
+        print(U_abs_diff)
+        return U_abs_diff
 
     def _apply_loads_to_framat_model(self):
         """
