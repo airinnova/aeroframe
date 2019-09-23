@@ -29,7 +29,7 @@ import logging
 import commonlibs.logger as hlogger
 
 from aeroframe.analyses.static import StaticAeroelasticity
-import aeroframe.fileio as io
+from aeroframe.fileio.settings import Settings
 from aeroframe import __prog_name__
 from aeroframe.__version__ import __version__
 
@@ -65,7 +65,7 @@ def standard_run(args):
     logger.info(hlogger.decorate(f"{__prog_name__} {__version__}"))
 
     # ===== Initialise =====
-    settings = io.Settings(root_dir=args.dest)
+    settings = Settings(root_dir=args.dest)
     cfd_wrapper, stru_wrapper = settings.get_wrappers()
 
     # ===== Clean up before running a new analysis =====

@@ -26,7 +26,7 @@ High-level wrappers for setup
 
 import sys
 
-import aeroframe.fileio as io
+from aeroframe.fileio.settings import Settings, PATHS
 
 
 class ArgsSetup:
@@ -45,12 +45,12 @@ def setup_project(args):
         :args: (obj) Instance of form 'ArgsSetup'
     """
 
-    paths = io.FileStructure(root_dir=args.dest, make_dirs=True)
+    paths = Settings(root_dir=args.dest, make_dirs=True)
 
     try:
         paths.init_emtpy_settings_file(overwrite=args.force)
     except FileExistsError:
-        err_msg = f"Settings file '{io.PATHS.FILES.DEFAULT_SETTINGS}' exists.\n" + \
+        err_msg = f"Settings file '{PATHS.FILES.DEFAULT_SETTINGS}' exists.\n" + \
                    "Will not overwrite, unless forced (hint: --force)"
         print(err_msg, sep='')
         sys.exit(1)
