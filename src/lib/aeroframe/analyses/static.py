@@ -84,10 +84,10 @@ class StaticAeroelasticity:
 
             n += 1
 
-            max_rel_deformation = self.stru.check_convergence()
-            logger.info(f"The maximum rel. difference is {(100*max_rel_deformation):.2f} %")
+            max_rel_def_diff = self.stru.get_max_rel_diff()
+            logger.info(f"The maximum rel. difference is {(100*max_rel_def_diff):.2f} %")
 
-            if abs(max_rel_deformation) < self.rel_conv_lim:
+            if abs(max_rel_def_diff) < self.rel_conv_lim:
                 logger.info(f"Solution has converged (loop {n})...")
                 has_converged = True
                 break

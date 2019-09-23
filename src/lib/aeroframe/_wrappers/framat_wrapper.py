@@ -17,6 +17,7 @@ import json
 import logging
 import os
 
+import numpy as np
 from aeroframe.templates.wrappers import StructureWrapper
 
 from commonlibs.fileio.json import dump_pretty_json
@@ -39,13 +40,17 @@ class Wrapper(StructureWrapper):
             raise FileNotFoundError(f"FramAT model '{self.own_files['model_file']}' file not found")
 
     def run_analysis(self):
+        self._apply_loads_to_framat_model()
+
         args = StdRunArgs(filename=self.own_files['model_file'], verbose=True)
         results = standard_run(args=args)
+
+        self.last_solution = results
 
         # ----- Share loads -----
         logger.info("Sharing loads...")
         frame = results['frame']
-        self.shared.structure.deformations = frame.deformation.get_displacement_fields(frame, n_sup=50)
+        self.shared.structure.deformations = frame.deformation.get_displacement_fields(frame, n_sup=500)
 
     def clean(self):
         """
@@ -54,10 +59,33 @@ class Wrapper(StructureWrapper):
 
         clean_project_dir(FileStructure(self.own_files['model_file']))
 
+    def get_max_rel_diff(self):
+        """
+        Return the maximum relative difference between the last two solutions
+
+        Note:
+
+            * It is assumed that the FEM mesh geometry does not change
+        """
+
+        if self.solution_before_last is None:
+            return 1
+
+        frame_last = self.last_solution['frame']
+        frame_before_last = self.solution_before_last['frame']
+        U_last = frame_last.deformation.U
+        U_before_last = frame_before_last.deformation.U
+        U_rel_diff = np.amax(np.absolute((U_last - U_before_last)/U_last))
+
+        print(U_rel_diff)
+        return U_rel_diff
+
     def _apply_loads_to_framat_model(self):
         """
         Apply shared loads to FramAT model
         """
+
+        logger.info("Applying shared loads to structure...")
 
         # Load the FramAT model file
         model_file = self.own_files['model_file']
@@ -81,4 +109,4 @@ class Wrapper(StructureWrapper):
 
         # Finally, update the structure file
         with open(self.own_files['model_file'], 'w') as fp:
-            dump_pretty_json(str_model, fp)
+            dump_pretty_json(model, fp)

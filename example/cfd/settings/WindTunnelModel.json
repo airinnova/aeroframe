@@ -1,7 +1,7 @@
 {
     "aircraft": "WindTunnelModel.json",
     "state": "example.json",
-    "deformation": "12cdc78c-4bc3-4e60-96c6-8a226afa8200.json",
+    "deformation": null,
     "vlm_autopanels_c": 5,
     "vlm_autopanels_s": 90,
     "_do_panel_rotations": false,
@@ -20,8 +20,8 @@
             "opt": [
                 "deformation"
             ],
-            "show": true,
-            "save": false
+            "show": false,
+            "save": true
         },
         "matrix_downwash": {
             "opt": [],

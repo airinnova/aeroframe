@@ -51,7 +51,15 @@ class GenericWrapper:
         self.shared = shared
         self.settings = settings
 
-        self.last_solution = None
+        self._last_solution = None
+
+    @property
+    def last_solution(self):
+        return self._last_solution
+
+    @last_solution.setter
+    def last_solution(self, last_solution):
+        self._last_solution = last_solution
 
     def run_analysis(self):
         """
@@ -111,7 +119,23 @@ class StructureWrapper(GenericWrapper):
         super().__init__(root_path, shared, settings)
         logger.info("Initialising structure wrapper...")
 
-    def check_convergence(self):
+        # The structure wrapper should keep track of the last two solutions
+        self._solution_before_last = None
+
+    @property
+    def last_solution(self):
+        return self._last_solution
+
+    @last_solution.setter
+    def last_solution(self, last_solution):
+        self._solution_before_last = self._last_solution
+        self._last_solution = last_solution
+
+    @property
+    def solution_before_last(self):
+        return self._solution_before_last
+
+    def get_max_rel_diff(self):
         """
         Return a relative difference between the deformations of the two analyses
 
