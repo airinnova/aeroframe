@@ -24,11 +24,6 @@ import pytornado.stdfun.run as pyt
 from aeroframe.templates.wrappers import AeroWrapper
 from aeroframe.fileio.serialise import dump_json_def_fields
 
-# ---------
-# TODO:
-# - Generalise load sharing for multiple wings and mirrored wings
-# ---------
-
 
 class Wrapper(AeroWrapper):
 
@@ -75,20 +70,31 @@ class Wrapper(AeroWrapper):
         self.last_solution = results  # Save the last solution
 
         # ----- Share load data -----
-        # ==========
-        # ==========
-        # TODO:
-        # + Make work for multiple wings
-        # + Mirrored wings
-        # ==========
-        # ==========
         vlmdata = results['vlmdata']
-        forces = np.array([vlmdata.panelwise[key] for key in ('fx', 'fy', 'fz')])
-        load_data = np.block([self.points_of_attack_undeformed, forces.T, np.zeros_like(forces.T)])
+        lattice = results['lattice']
+        load_fields = {}
+        for wing_uid, panellist in lattice.bookkeeping_by_wing_uid.items():
 
-        self.shared.cfd.loads['Wing'] = load_data
-        # ==========
-        # ==========
+            # TODO:
+            # -- Better way to count the number of panels!!!
+            num_pan = 0
+            for entry in panellist:
+                for _ in entry.pan_idx:
+                    num_pan += 1
+
+            load_field = np.zeros((num_pan, 9))
+            for entry in panellist:
+                # i: Index of the load field entry
+                # pan_idx: Index in PyTornado book keeping system
+                for i, pan_idx in enumerate(entry.pan_idx):
+                    load_field[i, 0:3] = self.points_of_attack_undeformed[pan_idx]
+                    load_field[i, 3] = vlmdata.panelwise['fx'][pan_idx]
+                    load_field[i, 4] = vlmdata.panelwise['fy'][pan_idx]
+                    load_field[i, 5] = vlmdata.panelwise['fz'][pan_idx]
+            load_fields[wing_uid] = load_field
+
+        # Make shared state
+        self.shared.cfd.load_fields = load_fields
 
     def _toggle_deformation(self, *, turn_on=True):
         """

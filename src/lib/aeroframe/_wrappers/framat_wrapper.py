@@ -76,7 +76,6 @@ class Wrapper(StructureWrapper):
         U_last = frame_last.deformation.U
         U_before_last = frame_before_last.deformation.U
         U_abs_diff = np.amax(np.absolute((U_last - U_before_last)))
-
         return U_abs_diff
 
     def _apply_loads_to_framat_model(self):
@@ -92,7 +91,7 @@ class Wrapper(StructureWrapper):
             model = json.load(fp)
 
         # Update the free node loads in the model
-        for component, load_field in self.shared.cfd.loads.items():
+        for component, load_field in self.shared.cfd.load_fields.items():
             for i, beamline in enumerate(model['beamlines']):
                 if beamline['uid'] == component:
                     beamline_idx = i

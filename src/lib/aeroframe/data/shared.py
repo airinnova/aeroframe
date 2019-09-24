@@ -50,14 +50,14 @@ class _CFDData:
         CFD data
 
         Attr:
-            :loads: Forces computed from the CFD analysis
+            :load_fields: Forces computed from the CFD analysis
 
         Note:
 
         Forces computed by a CFD solver and shared here must follow a
         strict format:
 
-            * 'self.loads' must be a dictionary. Each key must be a UID for
+            * 'self.load_fields' must be a dictionary. Each key must be a UID for
               the structural element on which the loads are acting.
 
             * The values must be Numpy arrays of the following format:
@@ -77,7 +77,7 @@ class _CFDData:
             * If there are no loads acting on a component, the value can be None
         """
 
-        self.loads = {}
+        self.load_fields = {}
 
 class _StructureData:
 
