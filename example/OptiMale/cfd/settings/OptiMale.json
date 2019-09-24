@@ -1,0 +1,38 @@
+{
+    "aircraft": "Optimale17_1.5.json",
+    "state": "example.json",
+    "deformation": "c0defb88-4135-4b96-80e6-adaf47b5610a.json",
+    "vlm_autopanels_c": 5,
+    "vlm_autopanels_s": 50,
+    "save_results": {
+        "global": false,
+        "panelwise": false,
+        "aeroperformance": false
+    },
+    "plot": {
+        "geometry": {
+            "opt": [],
+            "show": false,
+            "save": false
+        },
+        "lattice": {
+            "opt": [
+                "deformation"
+            ],
+            "show": false,
+            "save": true
+        },
+        "matrix_downwash": {
+            "opt": [],
+            "show": false,
+            "save": false
+        },
+        "results": {
+            "opt": [
+                "cp"
+            ],
+            "show": false,
+            "save": false
+        }
+    }
+}

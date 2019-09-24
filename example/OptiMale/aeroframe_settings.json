@@ -1,0 +1,20 @@
+{
+    "general_settings": {
+        "static_loop": {
+            "max_iterations": 15,
+            "abs_conv_lim": 0.001
+        }
+    },
+    "cfd_model": {
+        "wrapper": "aeroframe._wrappers.pytornado_wrapper",
+        "exec_settings": {
+            "run": "cfd/settings/OptiMale.json"
+        }
+    },
+    "structure_model": {
+        "wrapper": "aeroframe._wrappers.framat_wrapper",
+        "exec_settings": {
+            "model_file": "structure/OptiMale.json"
+        }
+    }
+}
