@@ -2,7 +2,7 @@
     "beamlines": [
         {
             "uid": "Wing",
-            "nelem": 100,
+            "nelem": 300,
             "nodes": [
                 {
                     "uid": "root",

@@ -90,7 +90,7 @@ class _StructureData:
         Deformations computed by a structure solver and shared here
         must follow a strict format:
 
-            * 'self.deformations' must be a dictionary. Each key must be a UID for
+            * 'self.def_fields' must be a dictionary. Each key must be a UID for
               the structural element on which the deformations belong.
 
             * The values must be Numpy arrays of the following format:
@@ -109,4 +109,4 @@ class _StructureData:
               txi, tyi, tzi are rotations in x, y and z directions
         """
 
-        self.deformations = {}
+        self.def_fields = {}

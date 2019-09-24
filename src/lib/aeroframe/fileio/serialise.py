@@ -30,20 +30,20 @@ from commonlibs.fileio.json import dump_pretty_json
 import numpy as np
 
 
-def dump_json_def_field(filename, def_field):
+def dump_json_def_fields(filename, def_fields):
     """
     Dump a JSON deformation field
 
     Args:
         :filename: (str) Output file name
-        :def_field: (array) Array of the displacement field
+        :def_fields: (array) Array of the displacement field
     """
 
     with open(filename, "w") as fp:
-        dump_pretty_json(def_field, fp)
+        dump_pretty_json(def_fields, fp)
 
 
-def load_json_def_field(filename):
+def load_json_def_fields(filename):
     """
     Load a deformation field from a JSON file and return a deformation field
 
@@ -51,14 +51,14 @@ def load_json_def_field(filename):
         :filename: (str) Output file name
 
     Returns:
-        :def_field: (array) Array of the displacement field
+        :def_fields: (array) Array of the displacement field
     """
 
     with open(filename, "r") as fp:
         def_field_from_json = json.load(fp)
 
-    def_field = {}
+    def_fields = {}
     for component_name, comp_def_field in def_field_from_json.items():
-        def_field[component_name] = np.array(comp_def_field, dtype=float)
+        def_fields[component_name] = np.array(comp_def_field, dtype=float)
 
-    return def_field
+    return def_fields

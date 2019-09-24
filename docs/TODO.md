@@ -4,6 +4,9 @@
 * Data exchange can be made "in-memory" instead of through files
     * Make `SharedState()` class (contains deformation and loads, etc.)
 
+* Interpolation method as described by Raimer et al. required (see p.212)
+    * Method is based on FEM shape functions
+
 ## Testing
 * ...
 

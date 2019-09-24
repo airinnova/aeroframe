@@ -22,8 +22,7 @@ from commonlibs.fileio.json import dump_pretty_json
 import pytornado.stdfun.run as pyt
 
 from aeroframe.templates.wrappers import AeroWrapper
-from aeroframe.interpol.translate import translate_from_line_to_line
-from aeroframe.fileio.serialise import dump_json_def_field
+from aeroframe.fileio.serialise import dump_json_def_fields
 
 # ---------
 # TODO:
@@ -69,7 +68,7 @@ class Wrapper(AeroWrapper):
             self._toggle_deformation(turn_on=False)
         else:
             self._toggle_deformation(turn_on=True)
-            dump_json_def_field(self.own_files['deformation'], self.shared.structure.deformations)
+            dump_json_def_fields(self.own_files['deformation'], self.shared.structure.def_fields)
 
         # ----- Run the PyTornado analysis -----
         results = pyt.standard_run(args=pyt.StdRunArgs(run=self.own_files['settings']))

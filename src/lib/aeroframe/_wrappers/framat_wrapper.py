@@ -50,7 +50,7 @@ class Wrapper(StructureWrapper):
         # ----- Share loads -----
         logger.info("Sharing loads...")
         frame = results['frame']
-        self.shared.structure.deformations = frame.deformation.get_displacement_fields(frame, n_sup=500)
+        self.shared.structure.def_fields = frame.deformation.get_displacement_fields(frame, n_sup=1000)
 
     def clean(self):
         """
@@ -77,7 +77,6 @@ class Wrapper(StructureWrapper):
         U_before_last = frame_before_last.deformation.U
         U_abs_diff = np.amax(np.absolute((U_last - U_before_last)))
 
-        print(U_abs_diff)
         return U_abs_diff
 
     def _apply_loads_to_framat_model(self):
