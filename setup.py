@@ -18,6 +18,9 @@ REQUIRES_PYTHON = '>=3.6.0'
 REQUIRED = [
     'commonlibs>=0.3.4',
 ]
+OPTIONAL_REQUIREMENTS = {
+    'examples': ['framat==0.3.0'],  # PyTornado is also required here, but not yet on PyPI
+}
 README = 'README.rst'
 PACKAGE_DIR = 'src/lib/'
 LICENSE = 'Apache License 2.0'
@@ -46,6 +49,7 @@ setuptools.setup(
     # packages=[NAME],
     packages=setuptools.find_packages(where=PACKAGE_DIR),
     python_requires=REQUIRES_PYTHON,
+    extras_require=OPTIONAL_REQUIREMENTS,
     install_requires=REQUIRED,
     # See: https://pypi.org/classifiers/
     classifiers=[
