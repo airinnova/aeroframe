@@ -309,8 +309,8 @@
                 {
                     "uid": "HTP_Elevator",
                     "device_type": "flap",
-                    "deflection": 10.3,
-                    "deflection_mirror": 10.3,
+                    "deflection": -0.2,
+                    "deflection_mirror": -0.2,
                     "segment_uid": {
                         "inner": "OptimaleBL3_HTP_Seg_1_2",
                         "outer": "OptimaleBL3_HTP_Seg_1_2"

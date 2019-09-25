@@ -91,19 +91,23 @@ class Wrapper(StructureWrapper):
             model = json.load(fp)
 
         # Update the free node loads in the model
-        for component, load_field in self.shared.cfd.load_fields.items():
+        for component_uid, load_field in self.shared.cfd.load_fields.items():
             for i, beamline in enumerate(model['beamlines']):
-                if beamline['uid'] == component:
+                if beamline['uid'] == component_uid.replace('_m', ''):  # TODO: make REGEX MUST END WITH
                     beamline_idx = i
                     break
             else:
-                raise RuntimeError(f"Component '{component}' not found in structure model")
+                raise RuntimeError(f"Component '{component_uid}' not found in structure model")
 
             # Add loads to model
             free_node_loads = []
             for entry in load_field:
                 free_node_loads.append({'coord': list(entry[0:3]), 'load': list(entry[3:9])})
-            model['beamlines'][beamline_idx]['loads']['free_nodes'] = free_node_loads
+
+            if component_uid.endswith('_m'):
+                model['beamlines'][beamline_idx]['mirror_loads']['free_nodes'] = free_node_loads
+            else:
+                model['beamlines'][beamline_idx]['loads']['free_nodes'] = free_node_loads
 
         # Finally, update the structure file
         with open(self.own_files['model_file'], 'w') as fp:

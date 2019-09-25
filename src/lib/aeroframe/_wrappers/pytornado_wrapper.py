@@ -47,8 +47,8 @@ class Wrapper(AeroWrapper):
 
         # Get the bound legs of the undeformed mesh
         self._toggle_deformation(turn_on=False)
-        results = pyt.standard_run(args=pyt.StdRunArgs(run=self.own_files['settings']))
-        bound_leg_midpoints = results['lattice'].bound_leg_midpoints
+        pytornado_results = pyt.standard_run(args=pyt.StdRunArgs(run=self.own_files['settings']))
+        bound_leg_midpoints = pytornado_results['lattice'].bound_leg_midpoints
         self.points_of_attack_undeformed = bound_leg_midpoints
 
     def run_analysis(self, turn_off_deform=False):
@@ -66,34 +66,11 @@ class Wrapper(AeroWrapper):
             dump_json_def_fields(self.own_files['deformation'], self.shared.structure.def_fields)
 
         # ----- Run the PyTornado analysis -----
-        results = pyt.standard_run(args=pyt.StdRunArgs(run=self.own_files['settings']))
-        self.last_solution = results  # Save the last solution
+        pytornado_results = pyt.standard_run(args=pyt.StdRunArgs(run=self.own_files['settings']))
+        self.last_solution = pytornado_results  # Save the last solution
 
         # ----- Share load data -----
-        vlmdata = results['vlmdata']
-        lattice = results['lattice']
-        load_fields = {}
-        for wing_uid, panellist in lattice.bookkeeping_by_wing_uid.items():
-
-            # TODO:
-            # -- Better way to count the number of panels!!!
-            num_pan = 0
-            for entry in panellist:
-                for _ in entry.pan_idx:
-                    num_pan += 1
-
-            load_field = np.zeros((num_pan, 9))
-            for entry in panellist:
-                # i: Index of the load field entry
-                # pan_idx: Index in PyTornado book keeping system
-                for i, pan_idx in enumerate(entry.pan_idx):
-                    load_field[i, 0:3] = self.points_of_attack_undeformed[pan_idx]
-                    load_field[i, 3] = vlmdata.panelwise['fx'][pan_idx]
-                    load_field[i, 4] = vlmdata.panelwise['fy'][pan_idx]
-                    load_field[i, 5] = vlmdata.panelwise['fz'][pan_idx]
-            load_fields[wing_uid] = load_field
-
-        # Make shared state
+        load_fields = self._get_load_fields(pytornado_results)
         self.shared.cfd.load_fields = load_fields
 
     def _toggle_deformation(self, *, turn_on=True):
@@ -119,3 +96,48 @@ class Wrapper(AeroWrapper):
         """
 
         pyt.clean_project_dir(pyt.get_settings(self.own_files['settings']))
+
+    def _get_load_fields(self, pytornado_results):
+        """
+        Return AeroFrame load fields from PyTornado results
+
+        Args:
+            :pytornado_results: (obj) PyTornado results data structure
+
+        Returns:
+            :load_fields: (dict) AeroFrame load fields
+        """
+
+        vlmdata = pytornado_results['vlmdata']
+        lattice = pytornado_results['lattice']
+
+        # PyTornado API provides access to loads on main wing and on mirrored side
+        bookkeeping_lists = (
+            (lattice.bookkeeping_by_wing_uid, ''),
+            (lattice.bookkeeping_by_wing_uid_mirror, '_m'),
+        )
+
+        load_fields = {}
+        for (bookkeeping_list, suffix) in bookkeeping_lists:
+            for wing_uid, panellist in bookkeeping_list.items():
+
+                # Count number of panels
+                num_pan = 0
+                for entry in panellist:
+                    num_pan += len(entry.pan_idx)
+
+                # Add a first row of zeros to use 'append' method (will be removed below)
+                load_field = np.zeros((1, 9))
+                for entry in panellist:
+                    # pan_idx: Index in PyTornado book keeping system
+                    for pan_idx in entry.pan_idx:
+                        load_field_entry = np.zeros((1, 9))
+                        load_field_entry[0, 0:3] = self.points_of_attack_undeformed[pan_idx]
+                        load_field_entry[0, 3] = vlmdata.panelwise['fx'][pan_idx]
+                        load_field_entry[0, 4] = vlmdata.panelwise['fy'][pan_idx]
+                        load_field_entry[0, 5] = vlmdata.panelwise['fz'][pan_idx]
+                        load_field = np.append(load_field, load_field_entry, axis=0)
+
+                load_fields[wing_uid + suffix] = load_field[1:, :]
+
+        return load_fields

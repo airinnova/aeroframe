@@ -1,7 +1,7 @@
 {
     "aircraft": "Optimale17_1.5.json",
     "state": "example.json",
-    "deformation": "c0defb88-4135-4b96-80e6-adaf47b5610a.json",
+    "deformation": null,
     "vlm_autopanels_c": 5,
     "vlm_autopanels_s": 50,
     "save_results": {
