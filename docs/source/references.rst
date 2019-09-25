@@ -26,3 +26,5 @@ Theoretical background
 .. [ToWi09] E. Torenbeek ; H. Wittenberg: Flight physics – Essentials of Aeronautical Disciplines and Technology, with Historical Notes. Dordrecht; London : Springer, 2009. – ISBN 1–4020–8664–4
 
 .. [RoWH14] Rossow, C.-C. ; Wolf, K. ; Horst, P. (Ed.): Handbuch der Luftfahrzeugtechnik. München : Hanser, 2014. – ISBN 978–3–446–42341–1
+
+.. [WGJZ18] Walther J.-N. ; Gastaldi, A. ; Jungo, A. ; Zhang, M. ; Maierl, R.: Integration Aspects of the Collaborative Aero-Structural Design of an Unmanned Aerial Vehicle. DLRK 2018, Friedrichshafen, Germany, 2018 https://www.agile-project.eu/cloud/index.php/s/1LLvkJlcrxcazSF
