@@ -10,6 +10,8 @@
 
 * Methods for merging load and deformations fields (How does this affect the mapping methods?)
 
+* Plot load and deformation fields
+
 ## Testing
 * ...
 
