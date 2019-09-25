@@ -1,11 +1,12 @@
 # TODO
 
 ## Important
-* Data exchange can be made "in-memory" instead of through files
-    * Make `SharedState()` class (contains deformation and loads, etc.)
 
+### Data mapping
 * Interpolation method as described by Raimer et al. required (see p.212)
     * Method is based on FEM shape functions
+
+* Add methods to map loads onto a FEM mesh (see Raimer et al.)
 
 ## Testing
 * ...
