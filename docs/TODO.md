@@ -8,6 +8,8 @@
 
 * Add methods to map loads onto a FEM mesh (see Raimer et al.)
 
+* Methods for merging load and deformations fields (How does this affect the mapping methods?)
+
 ## Testing
 * ...
 

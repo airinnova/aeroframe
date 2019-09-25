@@ -16,6 +16,7 @@ from os.path import join
 import json
 import logging
 import os
+import re
 
 import numpy as np
 from aeroframe.templates.wrappers import StructureWrapper
@@ -25,6 +26,8 @@ from framat.fileio.utils import FileStructure
 from framat.stdfun import standard_run, clean_project_dir, StdRunArgs
 
 logger = logging.getLogger(__name__)
+
+REGEX_MIRROR_IDENTIFIER = r"_m$"
 
 
 class Wrapper(StructureWrapper):
@@ -93,7 +96,7 @@ class Wrapper(StructureWrapper):
         # Update the free node loads in the model
         for component_uid, load_field in self.shared.cfd.load_fields.items():
             for i, beamline in enumerate(model['beamlines']):
-                if beamline['uid'] == component_uid.replace('_m', ''):  # TODO: make REGEX MUST END WITH
+                if beamline['uid'] == re.sub(REGEX_MIRROR_IDENTIFIER, '', component_uid):
                     beamline_idx = i
                     break
             else:
