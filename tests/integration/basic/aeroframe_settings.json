@@ -1,6 +1,6 @@
 {
     "cfd_model":{
-        "wrapper": "aeroframe.templates.cfdwrapper",
+        "wrapper": "aeroframe._wrappers.cfd.dummy",
         "exec_settings": {
             "run": "dummy",
             "verbose": true,
@@ -10,7 +10,7 @@
     },
 
     "structure_model": {
-        "wrapper": "aeroframe.templates.structurewrapper",
+        "wrapper": "aeroframe._wrappers.structure.dummy",
         "exec_settings": {
             "filename":" dummy_wing.json",
             "verbose":  true,

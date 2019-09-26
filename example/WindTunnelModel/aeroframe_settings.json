@@ -6,13 +6,13 @@
         }
     },
     "cfd_model": {
-        "wrapper": "aeroframe._wrappers.pytornado_wrapper",
+        "wrapper": "aeroframe._wrappers.cfd.pytornado",
         "exec_settings": {
             "run": "cfd/settings/WindTunnelModel.json"
         }
     },
     "structure_model": {
-        "wrapper": "aeroframe._wrappers.framat_wrapper",
+        "wrapper": "aeroframe._wrappers.structure.framat",
         "exec_settings": {
             "model_file": "structure/WindTunnelModel.json"
         }
