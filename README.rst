@@ -25,7 +25,7 @@
     :width: 200 px
     :scale: 100 %
 
-*AeroFrame* (*Aeroelasticity Framework*) is a modular framework for partitioned aeroelastic analyses. The framework couples separate solvers for structure and CFD. It coordinates the analysis and the exchange of loads and deformations. Currently, AeroFrame supports *static*  aeroelastic analyses.
+*AeroFrame* (*Aeroelastic Framework*) is a modular framework for partitioned aeroelastic analyses. The framework couples separate solvers for structure and CFD. It coordinates the analysis and the exchange of loads and deformations. Currently, AeroFrame supports *static*  aeroelastic analyses.
 
 .. image:: https://raw.githubusercontent.com/airinnova/aeroframe/master/docs/source/_static/images/cover_img_small.png
     :alt: Logo

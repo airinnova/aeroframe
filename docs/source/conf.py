@@ -36,6 +36,8 @@ version = __version__
 # ######### AUTOMATE THINGS ##########
 # ====================================
 os.system('bash ./dev_doc/gen_auto_doc.sh')
+os.system('bash _gen_help_page.sh')
+
 # -- General configuration ---------------------------------------------------
 extensions = [
     'sphinx.ext.autodoc',
@@ -74,8 +76,9 @@ pygments_style = None
 rst_prolog = f"""
 .. |name| replace:: {NAME}
 .. |name_long| replace:: {NAME_LONG}
-.. |name_cli| replace:: ``{NAME_CLI}``
+.. |name_cli| replace:: {NAME_CLI}
 .. |name_bold| replace:: **{NAME}**
+.. |webpage_issues| replace:: https://github.com/airinnova/aeroframe/issues
 .. _JSON: https://json.org/
 .. _CFD: https://en.wikipedia.org/wiki/Computational_fluid_dynamics
 .. _FEM: https://en.wikipedia.org/wiki/Finite_element_method
@@ -84,6 +87,7 @@ rst_prolog = f"""
 .. _PyPI: https://pypi.org/project/aeroframe/
 .. |pypi_long| replace:: Python Package Index
 .. _pip: https://pip.pypa.io/en/stable/
+.. _Github: https://github.com/airinnova/aeroframe
 .. |author1| replace:: {AUTHOR}
 .. |license| replace:: {LICENCE_NAME}
 """

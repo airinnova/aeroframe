@@ -28,3 +28,8 @@ Theoretical background
 .. [RoWH14] Rossow, C.-C. ; Wolf, K. ; Horst, P. (Ed.): Handbuch der Luftfahrzeugtechnik. München : Hanser, 2014. – ISBN 978–3–446–42341–1
 
 .. [WGJZ18] Walther J.-N. ; Gastaldi, A. ; Jungo, A. ; Zhang, M. ; Maierl, R.: Integration Aspects of the Collaborative Aero-Structural Design of an Unmanned Aerial Vehicle. DLRK 2018, Friedrichshafen, Germany, 2018 https://www.agile-project.eu/cloud/index.php/s/1LLvkJlcrxcazSF
+
+Other references
+----------------
+
+.. [AgOp19] AGILE, Aircraft 3rd Generation MDO for Innovative Collaboration of Heterogeneous Teams of Experts: Use Case – MALE UAV. 2019 https://www.agile-project.eu/use-case-male-uav/ ; Accessed: 2019-05-15
