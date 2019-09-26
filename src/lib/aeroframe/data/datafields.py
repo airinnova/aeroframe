@@ -39,3 +39,4 @@ def get_total_num_points(data_fields):
     n_points = 0
     for data_field in data_fields.values():
         n_points += data_field.shape[0]
+    return n_points
