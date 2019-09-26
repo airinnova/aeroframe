@@ -30,22 +30,25 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
+from aeroframe.data.datafields import get_total_num_points
+
 logger = logging.getLogger(__name__)
 
 
 # 3D plots
 
-def plot_all(data_fields):
+def plot_all(data_fields, density=1.0):
     """
     Visualise a load or deformation fields
 
     Args:
         :data_fields: (dict) Either load or deformation fields
+        :density: (float) Data density (plot approx. x percent of the data)
     """
 
     fig, ax = _init_3D_plot()
     _set_limits(ax, data_fields)
-    _plot_data_fields(ax, data_fields)
+    _plot_data_fields(ax, data_fields, density=density)
 
     plt.show()
     plt.close('all')
@@ -124,17 +127,31 @@ def _set_equal_aspect_3D(ax):
         getattr(ax, 'set_{}lim'.format(dim))(ctr - r, ctr + r)
 
 
-def _plot_data_fields(ax, data_fields):
+def _plot_data_fields(ax, data_fields, density=1.0):
     """
     Add data fields to an axis plot object
 
     Plot:
         :ax: (obj) Matplotlib axes object
         :data_fields: (dict) Either load or deformation fields
+        :density: (float) Data density (plot approx. x percent of the data)
     """
 
+    if not 0 < density <= 1:
+        raise ValueError("'density' must be in range (0, 1]")
+
+    # Plot  every nth point
+    nth = int(1/density)
+
     for uid, data_field in data_fields.items():
-        x = data_field[:, 0]
-        y = data_field[:, 1]
-        z = data_field[:, 2]
-        ax.plot(x, y, z)
+        sliced_data_field = data_field[::nth, 0:3]
+        x = sliced_data_field[:, 0]
+        y = sliced_data_field[:, 1]
+        z = sliced_data_field[:, 2]
+
+        if uid.endswith('_m'):
+            color = 'grey'
+        else:
+            color = 'maroon'
+
+        ax.scatter(x, y, z, color=color)
