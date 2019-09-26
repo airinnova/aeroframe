@@ -13,6 +13,7 @@ import os
 
 from aeroframe.stdfun.run import standard_run
 from aeroframe.stdfun.init import setup_project
+from aeroframe.stdfun.plot import plot
 from aeroframe import __prog_name__
 
 def cli():
@@ -42,12 +43,19 @@ def cli():
     sub.add_argument('-f', '--force', help='overwrite existing files', action='store_true')
     sub.add_argument('--dest', help='destination directory', default=os.getcwd())
 
+    # ----- Mode 'plot' -----
+    sub = subparsers.add_parser('plot', help='plot data fields')
+    sub.add_argument('files', nargs='+', help='data field files')
+    sub.add_argument('-p', '--percent', help='show X percent of data', type=int, default=100)
+
     args = parser.parse_args()
 
     if args.exec_mode == 'run':
         standard_run(args)
     elif args.exec_mode == 'init':
         setup_project(args)
+    elif args.exec_mode == 'plot':
+        plot(args)
     else:
         parser.print_help()
 
