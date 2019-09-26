@@ -40,16 +40,15 @@ class Wrapper(AeroWrapper):
         if not os.path.isfile(self.own_files['settings']):
             raise FileNotFoundError(f"PyTornado settings file '{self.own_files['settings']}' not found")
 
-        # Create deformation folder and empty file
+        # Create a PyTornado deformation folder and a empty deformation file
         if not os.path.exists(self.own_files['deformation_dir']):
             os.makedirs(self.own_files['deformation_dir'])
         open(self.own_files['deformation'], 'w').close()
 
-        # Get the bound legs of the undeformed mesh
+        # Get the bound leg midpoints of the undeformed (!) mesh
         self._toggle_deformation(turn_on=False)
         pytornado_results = pyt.standard_run(args=pyt.StdRunArgs(run=self.own_files['settings']))
-        bound_leg_midpoints = pytornado_results['lattice'].bound_leg_midpoints
-        self.points_of_attack_undeformed = bound_leg_midpoints
+        self.points_of_attack_undeformed = pytornado_results['lattice'].bound_leg_midpoints
 
     def run_analysis(self, turn_off_deform=False):
         """
@@ -70,17 +69,17 @@ class Wrapper(AeroWrapper):
         self.last_solution = pytornado_results  # Save the last solution
 
         # ----- Share load data -----
-        load_fields = self._get_load_fields(pytornado_results)
-        self.shared.cfd.load_fields = load_fields
+        self.shared.cfd.load_fields = self._get_load_fields(pytornado_results)
 
     def _toggle_deformation(self, *, turn_on=True):
         """
         Modify the PyTornado settings file and turn on/off the deformation
 
         Args:
-            :turn_on: (bool) If True, deformation will be turned on, otherwise off
+            :turn_on: (bool) If True, deformations will be turned on, otherwise off
         """
 
+        # Modify the PyTornado settings file
         with open(self.own_files['settings'], 'r') as fp:
             settings = json.load(fp)
 
@@ -91,9 +90,7 @@ class Wrapper(AeroWrapper):
             dump_pretty_json(settings, fp)
 
     def clean(self):
-        """
-        PyTornado's clean method
-        """
+        """PyTornado's clean method"""
 
         pyt.clean_project_dir(pyt.get_settings(self.own_files['settings']))
 
@@ -126,10 +123,10 @@ class Wrapper(AeroWrapper):
                 for entry in panellist:
                     num_pan += len(entry.pan_idx)
 
-                # Add a first row of zeros to use 'append' method (will be removed below)
+                # Add a first row of zeros in order to use 'append' method (will be removed below)
                 load_field = np.zeros((1, 9))
                 for entry in panellist:
-                    # pan_idx: Index in PyTornado book keeping system
+                    # pan_idx: Panel index in PyTornado book keeping system
                     for pan_idx in entry.pan_idx:
                         load_field_entry = np.zeros((1, 9))
                         load_field_entry[0, 0:3] = self.points_of_attack_undeformed[pan_idx]

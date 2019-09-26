@@ -35,19 +35,22 @@ class Wrapper(StructureWrapper):
     def __init__(self, root_path, shared, settings):
         super().__init__(root_path, shared, settings)
 
-        self.own_files = {}
-        self.own_files['model_file'] = join(self.root_path, settings.get('model_file', ''))
+        # FramAT files
+        self.own_files = {
+            'model_file': join(self.root_path, settings.get('model_file', ''))
+        }
 
         # Check that the model file exists
         if not os.path.isfile(self.own_files['model_file']):
             raise FileNotFoundError(f"FramAT model '{self.own_files['model_file']}' file not found")
 
     def run_analysis(self):
+        """Run a FramAT analysis"""
+
         self._apply_loads_to_framat_model()
 
-        args = StdRunArgs(filename=self.own_files['model_file'], verbose=True)
-        results = standard_run(args=args)
-
+        # ----- Run the FramAT analysis -----
+        results = standard_run(args=StdRunArgs(filename=self.own_files['model_file'], verbose=True))
         self.last_solution = results
 
         # ----- Share loads -----
@@ -56,9 +59,7 @@ class Wrapper(StructureWrapper):
         self.shared.structure.def_fields = frame.deformation.get_displacement_fields(frame, n_sup=1000)
 
     def clean(self):
-        """
-        FramAT's clean method
-        """
+        """FramAT's clean method"""
 
         clean_project_dir(FileStructure(self.own_files['model_file']))
 
@@ -71,20 +72,18 @@ class Wrapper(StructureWrapper):
             * It is assumed that the FEM mesh geometry does not change
         """
 
+        # In the first iteration there is no previous analysis, i.e. nothing to compare with
         if self.solution_before_last is None:
             return 1
 
-        frame_last = self.last_solution['frame']
-        frame_before_last = self.solution_before_last['frame']
-        U_last = frame_last.deformation.U
-        U_before_last = frame_before_last.deformation.U
+        # Get the maximum absolute difference
+        U_last = self.last_solution['frame'].deformation.U
+        U_before_last = self.solution_before_last['frame'].deformation.U
         U_abs_diff = np.amax(np.absolute((U_last - U_before_last)))
         return U_abs_diff
 
     def _apply_loads_to_framat_model(self):
-        """
-        Apply shared loads to FramAT model
-        """
+        """Apply shared loads to FramAT model"""
 
         logger.info("Applying shared loads to structure...")
 
@@ -96,17 +95,19 @@ class Wrapper(StructureWrapper):
         # Update the free node loads in the model
         for component_uid, load_field in self.shared.cfd.load_fields.items():
             for i, beamline in enumerate(model['beamlines']):
+                # Loads from a mirrored component 'BEAM_m' will be applied to 'BEAM'
                 if beamline['uid'] == re.sub(REGEX_MIRROR_IDENTIFIER, '', component_uid):
                     beamline_idx = i
                     break
             else:
                 raise RuntimeError(f"Component '{component_uid}' not found in structure model")
 
-            # Add loads to model
+            # Add loads to the FramAT model file
             free_node_loads = []
             for entry in load_field:
                 free_node_loads.append({'coord': list(entry[0:3]), 'load': list(entry[3:9])})
 
+            # Loads acting on a mirrored side
             if component_uid.endswith('_m'):
                 model['beamlines'][beamline_idx]['mirror_loads']['free_nodes'] = free_node_loads
             else:

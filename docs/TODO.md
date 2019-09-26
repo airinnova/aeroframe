@@ -12,6 +12,12 @@
 
 * Plot load and deformation fields
 
+### Data sharing
+* Loads may have to be applied to structure model in *undeformed* state (e.g. lin. Euler-Bernoulli beam)
+    * Save undeformed points of attack?
+    * Or use deformation field to compute backwards where undeformed points of attack were if required
+    * Perhaps, there should be a flag indicating if points of attack are from deformed or undeformed state
+
 ## Testing
 * ...
 
