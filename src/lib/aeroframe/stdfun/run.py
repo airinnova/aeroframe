@@ -38,7 +38,8 @@ logger = logging.getLogger(__name__)
 
 class StdRunArgs:
 
-    def __init__(self, verbose, debug, quiet, clean, clean_only):
+    def __init__(self, verbose=False, debug=False, quiet=True,
+                 clean=False, clean_only=False, dest=None):
 
         self.verbose = verbose
         self.debug = debug
@@ -46,6 +47,9 @@ class StdRunArgs:
 
         self.clean = clean
         self.clean_only = clean_only
+
+        # Root directory
+        self.dest = dest
 
 
 def standard_run(args):

@@ -80,13 +80,14 @@ class StaticAeroelasticity:
             logger.info("--> Structure analysis...")
             self.stru.run_analysis()
 
+            # Check convergence after the structure analysis
+            max_abs_def_diff = self.stru.get_max_abs_diff()
+            logger.info(f"The maximum abs. difference is {(max_abs_def_diff):.5f}")
+
             logger.info("--> Load analysis...")
             self.cfd.run_analysis()
 
             n += 1
-
-            max_abs_def_diff = self.stru.get_max_abs_diff()
-            logger.info(f"The maximum abs. difference is {(max_abs_def_diff):.2f}")
 
             if abs(max_abs_def_diff) < self.abs_conv_lim:
                 logger.info(f"Solution has converged (loop {n})...")
