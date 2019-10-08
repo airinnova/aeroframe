@@ -33,3 +33,13 @@ Other references
 ----------------
 
 .. [AgOp19] AGILE, Aircraft 3rd Generation MDO for Innovative Collaboration of Heterogeneous Teams of Experts: Use Case – MALE UAV. 2019 https://www.agile-project.eu/use-case-male-uav/ ; Accessed: 2019-05-15
+
+.. [Seyw11] Seywald, Klaus: Wingbox Mass Prediction considering Quasi-Static Nonlinear Aeroelasticity, Technische Universität München, KTH Royal Institute of Technology, Diploma thesis, 2011. http://kth.diva-portal.org/smash/record.jsf?pid=diva2%3A474633&dswid=-3704
+
+.. [Seyw16] Seywald, Klaus: Impact of Aeroelasticity on Flight Dynamics and Handling Qualities of Novel Aircraft Configurations. München, Technische Universität München, Dissertation, 2016. https://mediatum.ub.tum.de/?id=1296378
+
+.. [CMPW02] Cook, R.D. ; Malkus, D.S. ; Plesha, M.E., Witt, R.J.: Concepts and Applications of Finite Element Analysis. 4. New York : Wiley, 2002. -- ISBN 978–0–471–35605–9
+
+.. [Sund10] Sundström, B. (Ed.): Handbook of Solid Mechanics. KTH Royal Institute of Technology, Department of Solid Mechanics, 2010. -- ISBN 978–91–972860–4–6
+
+.. [BoEl16] Borglund, D. ; Eller, D.: Aeroelasticity of Slender Wing Structures in Low-Speed Airflow. Lecture Notes. KTH Royal Institute of Technology; Department of Aeronautical and Vehicle Engineering, 2016. ISSN 1651–7660

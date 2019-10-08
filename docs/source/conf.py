@@ -78,10 +78,14 @@ rst_prolog = f"""
 .. |name_long| replace:: {NAME_LONG}
 .. |name_cli| replace:: {NAME_CLI}
 .. |name_bold| replace:: **{NAME}**
+.. |framat| replace:: *FramAT*
 .. |webpage_issues| replace:: https://github.com/airinnova/aeroframe/issues
 .. _JSON: https://json.org/
 .. _CFD: https://en.wikipedia.org/wiki/Computational_fluid_dynamics
 .. _FEM: https://en.wikipedia.org/wiki/Finite_element_method
+.. _FE: https://en.wikipedia.org/wiki/Finite_element_method
+.. _VLM: https://en.wikipedia.org/wiki/Vortex_lattice_method
+.. _API: https://en.wikipedia.org/wiki/Application_programming_interface
 .. _Airinnova: http://airinnova.se/
 .. _Airinnova AB: http://airinnova.se/
 .. _PyPI: https://pypi.org/project/aeroframe/
