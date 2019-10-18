@@ -105,7 +105,11 @@ def _set_limits(ax, data_fields):
     ax.set_xlim(*limits['x'])
     ax.set_ylim(*limits['y'])
     ax.set_zlim(*limits['z'])
-    ax.set_aspect('equal')
+
+    # --> Method raises NotImplementedError in latest matplotlib version
+    # --> See: https://github.com/matplotlib/matplotlib/issues/1077
+    # ax.set_aspect('equal')
+
     _set_equal_aspect_3D(ax)
 
 

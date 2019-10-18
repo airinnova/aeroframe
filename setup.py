@@ -17,7 +17,7 @@ URL = 'https://github.com/airinnova/aeroframe'
 REQUIRES_PYTHON = '>=3.6.0'
 REQUIRED = [
     'commonlibs>=0.3.4',
-    'matplotlib==3.0.2',
+    'matplotlib>=3.0.2',
 ]
 OPTIONAL_REQUIREMENTS = {
     'examples': ['framat==0.3.0'],  # PyTornado is also required here, but not yet on PyPI

@@ -4,6 +4,16 @@ Changelog
 Changelog for FramAT. Version numbers try to follow `Semantic
 Versioning <https://semver.org/spec/v2.0.0.html>`__.
 
+[0.1.2] -- 2019-10-18
+---------------------
+
+Changed
+~~~~~~~
+
+* Removed call of 'matplotlib' function set_aspect('equal') which raises a NotImplementedError in latest version
+    * See: https://github.com/matplotlib/matplotlib/issues/1077
+    * Thereby removed the dependency on specific 'matplotlib' version
+
 [0.1.1] -- 2019-09-26
 ---------------------
 
