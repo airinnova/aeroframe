@@ -30,7 +30,6 @@ import os
 
 from commonlibs.fileio.paths import ProjectPaths
 from commonlibs.fileio.json import dump_pretty_json
-from commonlibs.dicts.schemadicts import get_default_value_dict
 
 from aeroframe.data.shared import SharedData
 
@@ -145,14 +144,18 @@ class Settings:
             :overwrite: (bool) If True, overwrite an existing settings file
         """
 
-        settings_file = self.paths("f_root_settings")
+        raise NotImplementedError
 
-        if not overwrite and settings_file.exists():
-            raise FileExistsError(f"Path '{settings_file}' exists. Will not overwrite.")
+        # ===== The function 'get_default_value_dict' is deprecated. Need substitute! =====
 
-        with open(settings_file, "w") as fp:
-            settings_dict = get_default_value_dict(DEFAULT_SETTINGS_DICT)
-            dump_pretty_json(settings_dict, fp)
+        # settings_file = self.paths("f_root_settings")
+
+        # if not overwrite and settings_file.exists():
+        #     raise FileExistsError(f"Path '{settings_file}' exists. Will not overwrite.")
+
+        # with open(settings_file, "w") as fp:
+        #     settings_dict = get_default_value_dict(DEFAULT_SETTINGS_DICT)
+        #     dump_pretty_json(settings_dict, fp)
 
 # ==============================
 # ==============================
