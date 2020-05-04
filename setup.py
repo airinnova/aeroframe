@@ -20,7 +20,7 @@ REQUIRED = [
     'matplotlib>=3.0.2',
 ]
 OPTIONAL_REQUIREMENTS = {
-    'examples': ['framat==0.3.0'],  # PyTornado is also required here, but not yet on PyPI
+    'examples': ['framat==0.3.2'],  # PyTornado is also required here, but not yet on PyPI
 }
 README = 'README.rst'
 PACKAGE_DIR = 'src/lib/'
