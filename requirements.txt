@@ -1,5 +1,5 @@
 Sphinx==1.8.5
-codecov==2.0.15
+codecov==2.0.16
 pytest-cov==2.7.1
 commonlibs>=0.3.4
 matplotlib>=3.0.2
